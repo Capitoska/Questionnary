@@ -17,12 +17,10 @@ public class QuestionEntity {
     @Column(name = "question")
     private String text;
 
-    //  COMPLETE  todo ManyToOne связь
     @ManyToOne
     @JoinColumn(name = "type_id")
     private AnswerTypeEntity answerType;
 
-    //  COMPLETE  todo ManyToMany связь.
     @ManyToMany
     @JoinTable(
             name = "right_answers",
@@ -31,7 +29,6 @@ public class QuestionEntity {
     )
     private Set<AnswerOptionEntity> rightAnswer;
 
-    //  COMPLETE  todo ManyToMany связь
     @ManyToMany
     @JoinTable(
             name = "questions_answer_options",

@@ -22,9 +22,8 @@ public class QuizEntity {
     @JoinColumn(name = "author_id")
     private UserEntity author;
 
-    //   COMPLETED todo OneToMany связь.
     @OneToMany
-    @JoinColumn(name = "quiz_id")
+    @JoinColumn(name = "quiz_id", insertable = false, updatable = false)
     private Set<QuestionEntity> questions;
 
     @Column(name = "private")

@@ -27,7 +27,6 @@ public class UserEntity {
     @Column(name = "birthday")
     private String birthday;
 
-    //  COMPLETE  todo ManyToOne relationship
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private RoleEntity role;
