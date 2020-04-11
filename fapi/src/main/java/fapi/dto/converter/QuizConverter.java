@@ -4,7 +4,9 @@ import fapi.dto.QuizDto;
 import fapi.entity.QuizEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class QuizConverter implements DefaultConverter<QuizDto, QuizEntity> {
 
     @Autowired

@@ -5,8 +5,8 @@ dependency-reduced-pom.xml
 # В runConfigurations находятся запускаторы
 /.idea/*
 !/.idea/runConfigurations/
-
 /logs/*
+/*/target/
 
 # Compiled class file
 *.class

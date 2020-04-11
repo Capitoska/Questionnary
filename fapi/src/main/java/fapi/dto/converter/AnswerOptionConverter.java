@@ -4,7 +4,9 @@ import fapi.dto.AnswerOptionDto;
 import fapi.entity.AnswerOptionEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AnswerOptionConverter implements DefaultConverter<AnswerOptionDto, AnswerOptionEntity> {
 
     @Autowired

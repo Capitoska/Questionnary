@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserAnswerConverter implements DefaultConverter<UserAnswerDto, UserAnswerEntity> {
 
+    @Autowired
     final ModelMapper mapper;
 
     @Autowired
