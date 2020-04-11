@@ -35,5 +35,4 @@ public class AnswerOptionController {
     public void deleteById(@PathVariable Long id) {
         answerOptionService.deleteById(id);
     }
-
 }

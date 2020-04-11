@@ -24,6 +24,7 @@ public class UserController {
 
     @GetMapping(value = "")
     public Iterable<UserEntity> getAllUsers() {
+
         return userService.findALL();
     }
 
