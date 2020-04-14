@@ -14,18 +14,18 @@ public class ThemeController {
     @Autowired
     ThemeService themeService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ThemeEntity> getUserAnswerById(@PathVariable(name = "id") Long id) {
         Optional<ThemeEntity> themeEntity = themeService.findById(id);
         return themeEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<ThemeEntity> getAllUserAnswer() {
         return themeService.findALL();
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ThemeEntity save(@RequestBody ThemeEntity userEntity) {
         return themeService.save(userEntity);
     }

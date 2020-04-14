@@ -3,6 +3,7 @@ package nk.trainings.backend.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -28,7 +29,7 @@ public class UserEntity {
     private String third_name;
 
     @Column(name = "birthday")
-    private String birthday;
+    private LocalDate birthday;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

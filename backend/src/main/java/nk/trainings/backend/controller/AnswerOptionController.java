@@ -15,18 +15,18 @@ public class AnswerOptionController {
     @Autowired
     AnswerOptionService answerOptionService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AnswerOptionEntity> getAnswerOptionById(@PathVariable(name = "id") Long id) {
         Optional<AnswerOptionEntity> answerOptionEntity = answerOptionService.findById(id);
         return answerOptionEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "")
+    @RequestMapping(method = RequestMethod.GET, value = "")
     public Iterable<AnswerOptionEntity> getAllAnswerOptionAnswer() {
         return answerOptionService.findALL();
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public AnswerOptionEntity save(@RequestBody AnswerOptionEntity answerOptionEntity) {
         return answerOptionService.save(answerOptionEntity);
     }

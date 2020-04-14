@@ -15,18 +15,18 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<RoleEntity> getRoleById(@PathVariable(name = "id") Long id) {
         Optional<RoleEntity> roleEntity = roleService.findById(id);
         return roleEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<RoleEntity> getAllRoleAnswer() {
         return roleService.findALL();
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public RoleEntity save(@RequestBody RoleEntity roleEntity) {
         return roleService.save(roleEntity);
     }

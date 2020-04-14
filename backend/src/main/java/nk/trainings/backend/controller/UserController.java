@@ -15,20 +15,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserEntity> getUserById(@PathVariable(name = "id") Long id) {
         Optional<UserEntity> userEntity = userService.findById(id);
         return userEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
-    @GetMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<UserEntity> getAllUsers() {
 
         return userService.findALL();
     }
 
-    @PostMapping()
+    @RequestMapping(method = RequestMethod.POST)
     public UserEntity saveUser(@RequestBody UserEntity userEntity) {
         return userService.save(userEntity);
     }

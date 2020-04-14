@@ -4,7 +4,10 @@ import nk.trainings.backend.entity.UserAnswerEntity;
 import nk.trainings.backend.service.UserAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
@@ -15,19 +18,19 @@ public class UserAnswerController {
     @Autowired
     UserAnswerService userAnswerService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<UserAnswerEntity> getUserAnswerById(@PathVariable(name = "id") Long id) {
         Optional<UserAnswerEntity> userAnswerEntity = userAnswerService.findById(id);
         return userAnswerEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<UserAnswerEntity> getAllUserAnswer() {
         return userAnswerService.findALL();
     }
 
 //    todo неккоректная работа сохранения Entity. Продумать.
-    @PostMapping
+    @RequestMapping(value = "", method =RequestMethod.POST)
     public UserAnswerEntity save(UserAnswerEntity userEntity) {
         return userAnswerService.save(userEntity);
     }

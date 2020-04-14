@@ -15,18 +15,18 @@ public class QuizController {
     @Autowired
     QuizService quizService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<QuizEntity> getQuizById(@PathVariable(name = "id") Long id) {
         Optional<QuizEntity> quizEntity = quizService.findById(id);
         return quizEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<QuizEntity> getAllQuizAnswer() {
         return quizService.findALL();
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public QuizEntity save(@RequestBody QuizEntity quizEntity) {
         return quizService.save(quizEntity);
     }

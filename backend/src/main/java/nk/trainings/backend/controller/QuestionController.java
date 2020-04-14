@@ -15,18 +15,18 @@ public class QuestionController {
     @Autowired
     QuestionService questionService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<QuestionEntity> getQuestionById(@PathVariable(name = "id") Long id) {
         Optional<QuestionEntity> questionEntity = questionService.findById(id);
         return questionEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<QuestionEntity> getAllQuestionAnswer() {
         return questionService.findALL();
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public QuestionEntity save(@RequestBody QuestionEntity questionEntity) {
         return questionService.save(questionEntity);
     }

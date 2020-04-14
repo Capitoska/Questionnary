@@ -15,18 +15,18 @@ public class AnswerTypeController {
     @Autowired
     AnswerTypeService answerTypeService;
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<AnswerTypeEntity> getAnswerTypeById(@PathVariable(name = "id") Long id) {
         Optional<AnswerTypeEntity> answerTypeEntity = answerTypeService.findById(id);
         return answerTypeEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<AnswerTypeEntity> getAllAnswerTypeAnswer() {
         return answerTypeService.findALL();
     }
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public AnswerTypeEntity save(@RequestBody AnswerTypeEntity answerTypeEntity) {
         return answerTypeService.save(answerTypeEntity);
     }
