@@ -1,5 +1,6 @@
 package nk.trainings.backend.controller;
 
+import lombok.extern.log4j.Log4j2;
 import nk.trainings.backend.entity.UserEntity;
 import nk.trainings.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@Log4j2
 @RequestMapping("/api/users")
 public class UserController {
 
@@ -24,7 +26,6 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<UserEntity> getAllUsers() {
-
         return userService.findALL();
     }
 
