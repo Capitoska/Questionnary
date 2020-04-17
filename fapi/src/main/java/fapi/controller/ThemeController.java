@@ -15,7 +15,7 @@ public class ThemeController {
     @Autowired
     private ThemeService themeService;
 
-// small test for Pull Request. Hehehehe.
+// small test for Pull Request. Hehehehe
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ThemeDto> getThemeById(@PathVariable Long id) {
         ThemeDto themeDto = themeService.findById(id).get();
