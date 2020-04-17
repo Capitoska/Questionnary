@@ -23,6 +23,12 @@ public class UserController {
         return userEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @RequestMapping(value = "/login/{username}", method = RequestMethod.GET)
+    public ResponseEntity<UserEntity> getUserByUsername(@PathVariable(name = "username") String username) {
+        Optional<UserEntity> userEntity = Optional.ofNullable(userService.findByUsername(username));
+        return userEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<UserEntity> getAllUsers() {

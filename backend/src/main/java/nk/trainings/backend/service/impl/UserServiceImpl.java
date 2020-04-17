@@ -30,8 +30,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userEntity);
     }
 
+
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserEntity findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 }

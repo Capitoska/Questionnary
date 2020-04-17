@@ -16,6 +16,9 @@ public class UserEntity {
     @Column(name = "first_name")
     private String first_name;
 
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "second_name")
     private String second_name;
 
