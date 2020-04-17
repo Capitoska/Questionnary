@@ -2,15 +2,17 @@ package fapi.entity;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class UserEntity {
     private Long id;
     private String username;
-    private String first_name;
-    private String second_name;
+    private String firstName;
+    private String secondName;
     private String email;
     private String password;
-    private String third_name;
-    private String birthday;
+    private String thirdName;
+    private LocalDate birthday;
     private RoleEntity role;
 }

@@ -14,13 +14,13 @@ public class UserEntity {
     private Long id;
 
     @Column(name = "first_name")
-    private String first_name;
+    private String firstName;
 
     @Column(name = "username")
     private String username;
 
     @Column(name = "second_name")
-    private String second_name;
+    private String secondName;
 
     @Column(name = "mail")
     private String email;
@@ -29,7 +29,7 @@ public class UserEntity {
     private String password;
 
     @Column(name = "third_name")
-    private String third_name;
+    private String thirdName;
 
     @Column(name = "birthday")
     private LocalDate birthday;
