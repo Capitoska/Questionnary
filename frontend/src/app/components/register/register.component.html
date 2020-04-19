@@ -9,18 +9,69 @@
           <td>
             <mat-form-field class="example-full-width">
               <label>
-                <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" required>
               </label>
             </mat-form-field>
           </td>
         </tr>
         <tr>
-          <td><mat-form-field class="example-full-width">
-            <label>
-              <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
-            </label>
-          </mat-form-field></td>
-        </tr></table>
+          <td>
+            <mat-form-field class="example-full-width">
+              <label>
+                <input matInput placeholder="First name" [(ngModel)]="user.firstName" name="firstName" required>
+              </label>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <label>
+                <input matInput placeholder="Second name" [(ngModel)]="user.secondName" name="secondName" required>
+              </label>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <label>
+                <input matInput placeholder="Third name" [(ngModel)]="user.thirdName" name="thirdName" required>
+              </label>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <label>
+                <input matInput placeholder="Password" [(ngModel)]="user.password" type="password" name="password"
+                       required>
+              </label>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <label>
+                <input matInput placeholder="Birthday" [(ngModel)]="user.birthday" name="birthday"
+                       required>
+              </label>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <label>
+                <input matInput placeholder="Email" [(ngModel)]="user.email" name="email"
+                       required>
+              </label>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
     </form>
   </mat-card-content>
   <mat-card-actions>
