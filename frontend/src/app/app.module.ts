@@ -18,6 +18,7 @@ import {MatCardModule} from "@angular/material/card";
 import {ProfileComponent} from './components/profile/profile.component';
 import {ErrorComponent} from './components/error/error.component';
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {FormsModule} from "@angular/forms";
     ErrorComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

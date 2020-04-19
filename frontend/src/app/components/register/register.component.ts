@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {IUser} from "../../interfaces/IUser";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -6,15 +8,23 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  username: string;
-  password: string;
+  user: IUser = {
+    birthday: "",
+    email: "",
+    firstName: "",
+    password: "",
+    secondName: "",
+    thirdName: "",
+    username: ""
+  };
 
-  constructor() { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
   }
 
   register() {
-    alert('Already do not works :)');
+    this.userService.registerUser(this.user);
   }
 }
