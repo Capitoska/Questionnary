@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity save(@RequestBody UserEntity userEntity) {
         if (userEntity.getRole() == null) {
-            userEntity.setRole(roleRepository.findById(new Long(1)).get());
+            userEntity.setRole(roleRepository.findById(1L));
         }
         return userRepository.save(userEntity);
     }
