@@ -16,24 +16,14 @@ public class RoleController {
     RoleService roleService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<RoleEntity> getRoleById(@PathVariable(name = "id") Long id) {
-        Optional<RoleEntity> roleEntity = roleService.findById(id);
-        return roleEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public RoleEntity getRoleById(@PathVariable(name = "id") Long id) {
+        RoleEntity roleEntity = roleService.getById(id);
+        return roleEntity;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<RoleEntity> getAllRoleAnswer() {
-        return roleService.findALL();
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public RoleEntity save(@RequestBody RoleEntity roleEntity) {
-        return roleService.save(roleEntity);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable(name = "id") Long id) {
-        roleService.deleteById(id);
+        return roleService.getAll();
     }
 
 

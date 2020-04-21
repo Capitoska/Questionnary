@@ -3,35 +3,33 @@ package nk.trainings.backend.service.impl;
 import nk.trainings.backend.entity.RoleEntity;
 import nk.trainings.backend.repository.RoleRepository;
 import nk.trainings.backend.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
-    RoleRepository roleRepository;
+    final RoleRepository roleRepository;
 
-    @Override
-    public Iterable<RoleEntity> findALL() {
-        return roleRepository.findAll();
+    public RoleServiceImpl(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
     @Override
-    public Optional<RoleEntity> findById(Long id) {
+    @Transactional
+    public RoleEntity getById(Long id) {
         return roleRepository.findById(id);
     }
 
     @Override
-    public RoleEntity save(@RequestBody RoleEntity roleEntity) {
-        return roleRepository.save(roleEntity);
+    @Transactional
+    public RoleEntity getByName(String name) {
+        return roleRepository.findByName(name);
     }
 
     @Override
-    public void deleteById(Long id) {
-        roleRepository.deleteById(id);
+    @Transactional
+    public Iterable<RoleEntity> getAll() {
+        return roleRepository.findAll();
     }
 }
