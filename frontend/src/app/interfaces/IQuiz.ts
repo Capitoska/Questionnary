@@ -1,8 +1,8 @@
-import {IUser} from "./IUser";
-import {IQuestion} from "./IQuestion";
+import {IUser} from './IUser';
+import {IQuestion} from './IQuestion';
 
 export interface IQuiz {
-  id:number;
+  id: number;
   name: string;
   author: IUser;
   questions: Array<IQuestion>;
