@@ -1,24 +1,23 @@
 package nk.trainings.backend.repository.impl;
 
-import lombok.Setter;
 import nk.trainings.backend.entity.RoleEntity;
 import nk.trainings.backend.repository.RoleRepository;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
 
-
-    @Setter(onMethod_ = @Autowired)
-    protected SessionFactory sessionFactory;
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Override
     public RoleEntity findById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createQuery("from RoleEntity where id=:id");
         query.setParameter("id",id);
         return (RoleEntity) query.uniqueResult();
@@ -26,7 +25,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public RoleEntity findByName(String name) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createQuery("from RoleEntity where name=:name");
         query.setParameter("name",name);
         return (RoleEntity) query.uniqueResult();
@@ -34,7 +33,7 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Iterable<RoleEntity> findAll() {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManager.unwrap(Session.class);
         Query query =session.createQuery("from RoleEntity");
         return  (Iterable<RoleEntity>) query.getResultList();
     }

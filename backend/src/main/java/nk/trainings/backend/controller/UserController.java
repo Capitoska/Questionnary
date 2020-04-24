@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@Log4j2
 @RequestMapping("/api/users")
+@Log4j2
 public class UserController {
 
     @Autowired
@@ -37,6 +37,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public UserEntity saveUser(@RequestBody UserEntity userEntity) {
+        log.info("HEEEY");
         return userService.save(userEntity);
     }
 

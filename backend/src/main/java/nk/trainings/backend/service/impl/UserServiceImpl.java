@@ -1,18 +1,16 @@
 package nk.trainings.backend.service.impl;
 
-import lombok.extern.log4j.Log4j2;
 import nk.trainings.backend.entity.UserEntity;
 import nk.trainings.backend.repository.RoleRepository;
 import nk.trainings.backend.repository.UserRepository;
 import nk.trainings.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
-@Log4j2
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -27,6 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Optional<UserEntity> findById(Long id) {
         return userRepository.findById(id);
     }
@@ -34,10 +33,12 @@ public class UserServiceImpl implements UserService {
 
 //    todo HardCode. Think about solution.
     @Override
-    public UserEntity save(@RequestBody UserEntity userEntity) {
-        if (userEntity.getRole() == null) {
+    @Transactional
+    public UserEntity save(UserEntity userEntity) {
+       /* if (userEntity.getRole() == null) {
+            LOGGER.info("GAAAAAAAAAAAAAA");
             userEntity.setRole(roleRepository.findById(1L));
-        }
+        }*/
         return userRepository.save(userEntity);
     }
 

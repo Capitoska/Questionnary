@@ -1,70 +1,63 @@
 package nk.trainings.backend;
 
+import com.p6spy.engine.spy.P6DataSource;
 import lombok.Setter;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.Properties;
+import java.util.HashMap;
 
-@SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
-@Configuration
+@SpringBootApplication
+@EnableJpaRepositories
+@EnableTransactionManagement
 @Setter
 public class BackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
     }
 
-    @Autowired
-    DataSource dataSource;
-
     @Bean
-    public LocalSessionFactoryBean sessionFactory(DataSource source) {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(source);
-        sessionFactory.setPackagesToScan("nk.trainings.backend.entity");
-
-        Properties prop = new Properties();
-        prop.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL55Dialect");
-
-        prop.setProperty("hibernate.show_sql", "false");
-        prop.setProperty("hibernate.format_sql", "false");
-        prop.setProperty("hibernate.use_sql_comments", "false");
-        prop.setProperty("hibernate.generate_statistics", "false");
-        prop.setProperty("hibernate.jdbc.batch_size", "20");
-
-        sessionFactory.setHibernateProperties(prop);
-        return sessionFactory;
-    }
-
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    @Primary
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         //JpaVendorAdapteradapter can be autowired as well if it's configured in application properties.
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(false);
+        vendorAdapter.setGenerateDdl(true);
+
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL55Dialect");
+        properties.put("hibernate.hbm2ddl.auto", "validate");
+        properties.put("hibernate.show_sql", "false");
+        properties.put("hibernate.format_sql", "false");
+        properties.put("hibernate.use_sql_comments", "false");
+        properties.put("hibernate.generate_statistics", "false");
+        properties.put("hibernate.jdbc.batch_size", "20");
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         //Add package to scan for entities.
         factory.setPackagesToScan("nk.trainings.backend.entity");
-        factory.setDataSource(dataSource);
+        factory.setDataSource(new P6DataSource(dataSource));
+        factory.setJpaPropertyMap(properties);
+        factory.afterPropertiesSet();
         return factory;
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
-        hibernateTransactionManager.setSessionFactory(sessionFactory);
-        return hibernateTransactionManager;
+    @Autowired
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf)  {
+        JpaTransactionManager jpaTransaction = new JpaTransactionManager();
+        jpaTransaction.setEntityManagerFactory(emf);
+        return jpaTransaction;
     }
 }
