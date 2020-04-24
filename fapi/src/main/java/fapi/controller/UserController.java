@@ -5,6 +5,7 @@ import fapi.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
+    @PreAuthorize("hasRole('admin')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Iterable<UserDto>> getAllUsers() {
         List<UserDto> userDtoList = (List<UserDto>) userService.findALL();
@@ -38,7 +40,6 @@ public class UserController {
     public ResponseEntity<UserDto> save(@RequestBody UserDto dto) {
         dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         dto = userService.save(dto);
-//        return new ResponseEntity<>(dto, HttpStatus.CREATED);
         return ResponseEntity.ok(dto);
     }
 

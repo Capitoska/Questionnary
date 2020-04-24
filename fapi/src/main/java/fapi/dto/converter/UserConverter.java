@@ -21,12 +21,11 @@ public class UserConverter implements DefaultConverter<UserDto, UserEntity> {
 
     @Override
     public UserDto toDto(UserEntity userEntity) {
-        return userEntity == null? null: mapper.map(userEntity, UserDto.class);
+        return userEntity == null ? null : mapper.map(userEntity, UserDto.class);
     }
 
     @Override
     public UserEntity toEntity(UserDto userDTO) {
-        return userDTO == null? null: mapper.map(userDTO, UserEntity.class);
+        return userDTO == null ? null : mapper.map(userDTO, UserEntity.class);
     }
-
 }
