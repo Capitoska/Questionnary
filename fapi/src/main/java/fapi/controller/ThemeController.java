@@ -15,7 +15,6 @@ public class ThemeController {
     @Autowired
     private ThemeService themeService;
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ThemeDto> getThemeById(@PathVariable Long id) {
         ThemeDto themeDto = themeService.findById(id).get();

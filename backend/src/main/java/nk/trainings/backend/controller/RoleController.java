@@ -3,10 +3,10 @@ package nk.trainings.backend.controller;
 import nk.trainings.backend.entity.RoleEntity;
 import nk.trainings.backend.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/roles")
@@ -16,24 +16,13 @@ public class RoleController {
     RoleService roleService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<RoleEntity> getRoleById(@PathVariable(name = "id") Long id) {
-        Optional<RoleEntity> roleEntity = roleService.findById(id);
-        return roleEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public RoleEntity getRoleById(@PathVariable(name = "id") Long id) {
+        return roleService.getById(id);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<RoleEntity> getAllRoleAnswer() {
-        return roleService.findALL();
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public RoleEntity save(@RequestBody RoleEntity roleEntity) {
-        return roleService.save(roleEntity);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable(name = "id") Long id) {
-        roleService.deleteById(id);
+        return roleService.getAll();
     }
 
 
