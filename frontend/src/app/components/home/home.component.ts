@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { IQuiz } from 'src/app/interfaces/IQuiz';
 import { QuizService } from 'src/app/services/quiz.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   quizList: Observable<IQuiz[]>;
-  constructor(private quizService: QuizService) { }
+  constructor(private quizService: QuizService, private router: Router) { }
 
   ngOnInit(): void {
     this.reloadData();
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   quizDetails(id: number) {
-    return id;
+    this.router.navigate(['quizes', id]);
   }
 
 }

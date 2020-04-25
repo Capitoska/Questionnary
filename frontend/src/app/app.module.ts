@@ -19,6 +19,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {ErrorComponent} from './components/error/error.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { QuizSaveComponent } from './components/quiz-save/quiz-save.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {HttpClientModule} from '@angular/common/http';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ErrorComponent
+    ErrorComponent,
+    QuizSaveComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,0 +1,9 @@
+<div *ngIf="quiz">
+    <div>Name of quiz: {{quiz.name}}</div>
+    <div>Author: {{quiz.author}}</div>
+    <div *ngIf="let question of quiz.questions | async">
+        <div>
+            <div>{{question.text}}:</div>
+        </div>
+    </div>
+</div>
