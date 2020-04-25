@@ -9,7 +9,7 @@
           <td>
             <mat-form-field class="example-full-width">
               <label>
-                <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+                <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" required>
               </label>
             </mat-form-field>
           </td>
@@ -17,13 +17,13 @@
         <tr>
           <td><mat-form-field class="example-full-width">
             <label>
-              <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+              <input matInput placeholder="Password" [(ngModel)]="user.password" type="password" name="password" required>
             </label>
           </mat-form-field></td>
         </tr></table>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="login()" color="primary">Login</button>
+    <button mat-raised-button (click)="loginUser()" color="primary">Login</button>
   </mat-card-actions>
 </mat-card>

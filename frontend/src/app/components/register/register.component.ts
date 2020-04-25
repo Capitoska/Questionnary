@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {IUser} from "../../interfaces/IUser";
-import {UserService} from "../../services/user.service";
+import {IUser} from '../../interfaces/IUser';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -9,13 +9,13 @@ import {UserService} from "../../services/user.service";
 })
 export class RegisterComponent implements OnInit {
   user: IUser = {
-    birthday: "",
-    email: "",
-    firstName: "",
-    password: "",
-    secondName: "",
-    thirdName: "",
-    username: ""
+    birthday: '',
+    email: '',
+    firstName: '',
+    password: '',
+    secondName: '',
+    thirdName: '',
+    username: ''
   };
 
   constructor(private userService: UserService) {
@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  register() {
-    this.userService.registerUser(this.user);
+  registerUser() {
+    this.userService.register(this.user);
   }
 }
