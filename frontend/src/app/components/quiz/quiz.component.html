@@ -1,9 +1,21 @@
+<h2>Quiz Details</h2>
+
+<hr/>
 <div *ngIf="quiz">
-    <div>Name of quiz: {{quiz.name}}</div>
-    <div>Author: {{quiz.author}}</div>
-    <div *ngIf="let question of quiz.questions | async">
-        <div>
-            <div>{{question.text}}:</div>
-        </div>
-    </div>
+  <div>
+    <label><b>Name: </b></label> {{quiz.name}}
+  </div>
+  <div>
+    <label><b>Author's username: </b></label> {{quiz.author.username}}
+  </div>
+  <div>
+    <label><b>Author: </b></label> {{quiz.author.firstName}} {{quiz.author.secondName}} {{quiz.author.thirdName}}
+  </div>
+  <div>
+    <label><b>Email: </b></label> {{quiz.email}}
+  </div>
 </div>
+
+<br>
+<br>
+<button mat-raised-button color="accent" (click)="quizList()">Back to Quiz List</button>

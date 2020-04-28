@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { apiBaseUrl } from '../constants';
-import { IQuiz } from '../interfaces/IQuiz';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {apiBaseUrl} from '../constants';
+import {IQuiz} from '../interfaces/IQuiz';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +16,11 @@ export class QuizService {
   }
 
   getQuizById(id: number): Observable<any> {
-    return this.http.get(`${apiBaseUrl}/quizes/` + id);
+    return this.http.get(`${apiBaseUrl}/quizes/${id}`);
   }
 
-  deleteQuiz(id: number) {
-    return this.http.delete(`${apiBaseUrl}/quizes/` + id);
+  deleteQuiz(id: number): Observable<any> {
+    return this.http.delete(`${apiBaseUrl}/quizes/${id}`);
   }
 
   saveQuiz(quiz: IQuiz) {

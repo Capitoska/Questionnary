@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import { IQuiz } from 'src/app/interfaces/IQuiz';
-import { QuizService } from 'src/app/services/quiz.service';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import {IQuiz} from 'src/app/interfaces/IQuiz';
+import {QuizService} from 'src/app/services/quiz.service';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
   }
 
   deleteQuiz(id: number){
-    this.quizService.deleteQuiz(id);
+    this.quizService.deleteQuiz(id)
+      .subscribe(data => {console.log(data);
+        this.reloadData()}, error => console.log(error));
   }
 
   quizDetails(id: number) {

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { QuizService } from 'src/app/services/quiz.service';
-import { Observable } from 'rxjs';
-import { IQuiz } from 'src/app/interfaces/IQuiz';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {QuizService} from 'src/app/services/quiz.service';
+import {IQuiz} from 'src/app/interfaces/IQuiz';
 
 @Component({
   selector: 'app-quiz-save',
@@ -11,21 +10,24 @@ import { IQuiz } from 'src/app/interfaces/IQuiz';
 })
 export class QuizSaveComponent implements OnInit {
 
-  quiz: IQuiz;
+  quiz: IQuiz = {
+    author: null,
+    id: 0,
+    isOpen: false,
+    name: "",
+    questions: null
+  };
   submitted = false;
 
-  constructor(private quizService: QuizService, private router: Router) { }
+  constructor(private quizService: QuizService, private router: Router) {
+  }
 
   ngOnInit() {
   }
 
-  newEmployee(): void {
-    this.submitted = false;
-  }
-
   save() {
     this.quizService.saveQuiz(this.quiz)
-    .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => console.log(data), error => console.log(error));
     this.gotoList();
   }
 
@@ -35,7 +37,7 @@ export class QuizSaveComponent implements OnInit {
   }
 
   gotoList() {
-    this.router.navigate(['/']);
+    this.router.navigate(['']);
   }
 }
 
