@@ -20,7 +20,7 @@ import {ErrorComponent} from './components/error/error.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
-import {QuizComponent} from "./components/quiz/quiz.component";
+import {QuizComponent} from './components/quiz/quiz.component';
 
 @NgModule({
   declarations: [

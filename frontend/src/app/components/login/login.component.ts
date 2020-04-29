@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private userService: UserService, private tokenStorage: TokenStorageService) { }
   user = {
     username: '',
     password: ''
@@ -17,6 +18,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser(): void {
-
+    this.userService.login(this.user).subscribe(data => {
+      this.tokenStorage.saveToken(data.accessToken);
+      this.tokenStorage.saveUser(data);
+    }, error => console.log(error));
   }
 }
