@@ -17,6 +17,6 @@ export class UserService {
   }
 
   login(user: IUser): Observable<any> {
-    return this.http.post(`${apiBaseUrl}/token/generate-token/`, user, httpOptions);
+    return this.http.post(`${apiBaseUrl}/token/authenticate`, user, httpOptions);
   }
 }

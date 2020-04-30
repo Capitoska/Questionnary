@@ -18,6 +18,9 @@ export class RegisterComponent implements OnInit {
     thirdName: '',
     username: ''
   };
+  isSuccessful = false;
+  isSignUpFailed = false;
+  errorMessage = '';
 
   constructor(private userService: UserService) {
   }
@@ -25,7 +28,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  registerUser() {
-    this.userService.register(this.user);
+  onSubmit() {
+    this.userService.register(this.user).subscribe(
+      data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
+      });
   }
 }
