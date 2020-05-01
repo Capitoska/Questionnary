@@ -14,6 +14,12 @@ public class FapiApplication {
         return new RestTemplate();
     }
 
+    // @Bean
+    // public String currentUser(){
+    //     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    //     return auth.getName();
+    // }
+
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
