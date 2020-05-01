@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from 'src/app/services/user.service';
+import {TokenStorageService} from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   loginUser(): void {
     this.userService.login(this.user).subscribe(data => {
       console.log(data);
-      this.tokenStorage.saveToken(data.accessToken);
+      this.tokenStorage.saveToken(data.jwtResponse);
       this.tokenStorage.saveUser(data);
     }, error => console.log(error));
   }

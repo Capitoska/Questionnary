@@ -21,6 +21,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
 import {QuizComponent} from './components/quiz/quiz.component';
+import {authInterceptorProviders} from './constants';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import {QuizComponent} from './components/quiz/quiz.component';
     MatCardModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    authInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
