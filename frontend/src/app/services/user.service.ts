@@ -13,10 +13,18 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router) {}
 
   register(user: IUser): Observable<any> {
-    return this.http.post(`${apiBaseUrl}/users/`, user, httpOptions);
+    return this.http.post(`${apiBaseUrl}/users`, user, httpOptions);
   }
 
   login(user: IUser): Observable<any> {
     return this.http.post(`${apiBaseUrl}/token/authenticate`, user, httpOptions);
+  }
+
+  getUser(id: number): Observable<any> {
+    return this.http.get(`${apiBaseUrl}/users/${id}`, httpOptions);
+  }
+
+  getAuthorizedUser(): Observable<any> {
+    return this.http.get(`${apiBaseUrl}/my-profile`, httpOptions);
   }
 }

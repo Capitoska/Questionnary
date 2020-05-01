@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {IUser} from '../../interfaces/IUser';
 import {UserService} from '../../services/user.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -22,13 +24,14 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
+    this.user.birthday = this.convertDate(this.user.birthday);
     this.userService.register(this.user).subscribe(
       data => {
         console.log(data);
@@ -39,5 +42,9 @@ export class RegisterComponent implements OnInit {
         this.errorMessage = err.error.message;
         this.isSignUpFailed = true;
       });
+  }
+
+  convertDate(date: string | Date): string {
+    return this.datePipe.transform(date, 'dd-MM-yyyy');
   }
 }

@@ -22,6 +22,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
 import {QuizComponent} from './components/quiz/quiz.component';
 import {authInterceptorProviders} from './constants';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {authInterceptorProviders} from './constants';
     FormsModule
   ],
   providers: [
-    authInterceptorProviders
+    authInterceptorProviders,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

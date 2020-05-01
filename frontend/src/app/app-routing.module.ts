@@ -6,7 +6,7 @@ import {ErrorComponent} from './components/error/error.component';
 import {RegisterComponent} from './components/register/register.component';
 import {HomeComponent} from './components/home/home.component';
 import {QuizComponent} from './components/quiz/quiz.component';
-import {QuizSaveComponent} from "./components/quiz-save/quiz-save.component";
+import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
 
 
 const routes: Routes = [

@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit {
-  quiz;
+  quiz: any;
   id: number;
 
   constructor(private quizService: QuizService, private route: ActivatedRoute, private router: Router) { }

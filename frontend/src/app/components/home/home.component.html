@@ -1,6 +1,6 @@
 <div  class="panel panel-primary">
     <div  class="panel-heading">
-      <h2>Employees List</h2>
+      <h2>Quizes List</h2>
     </div>
     <div class="panel-body main">
       <table class="table table-hover table-striped">
@@ -17,8 +17,8 @@
             <td>{{quiz.id}}</td>
             <td>{{quiz.name}}</td>
             <td>{{quiz.author.username}}</td>
-            <td><button mat-raised-button color="warn" (click)="deleteQuiz(quiz.id)" class="btn btn-danger btn-delete">Delete</button>
-                <button mat-button (click)="quizDetails(quiz.id)" class="btn btn-info btn-detail" style="margin-left: 10px">Details</button>
+            <td><button (click)="deleteQuiz(quiz.id)" class="btn btn-danger btn-delete">Delete</button>
+                <button (click)="quizDetails(quiz.id)" class="btn btn-info btn-detail" style="margin-left: 10px">Details</button>
             </td>
           </tr>
         </tbody>
