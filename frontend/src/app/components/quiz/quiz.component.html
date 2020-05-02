@@ -1,21 +1,13 @@
-<h2>Quiz Details</h2>
-
-<hr/>
-<div *ngIf="quiz">
-  <div>
-    <label><b>Name: </b></label> {{quiz.name}}
-  </div>
-  <div>
-    <label><b>Author's username: </b></label> {{quiz.author.username}}
-  </div>
-  <div>
-    <label><b>Author: </b></label> {{quiz.author.firstName}} {{quiz.author.secondName}} {{quiz.author.thirdName}}
-  </div>
-  <div>
-    <label><b>Email: </b></label> {{quiz.email}}
+<div class="container col-7">
+  <h2 class="card-title">Quiz Details</h2>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><b>Name: </b> {{quiz.name}}</li>
+    <li class="list-group-item"><b>Author's username: </b> {{quiz.author.username}}</li>
+    <li class="list-group-item"><b>Author: </b> {{quiz.author.firstName}} {{quiz.author.secondName}}
+      {{quiz.author.thirdName}}</li>
+    <li class="list-group-item"><b>Email: </b> {{quiz.email}}</li>
+  </ul>
+  <div class="card-footer">
+    <button type="button" class="btn btn-light" (click)="quizList()">Back to Quiz List</button>
   </div>
 </div>
-
-<br>
-<br>
-<button mat-raised-button color="accent" (click)="quizList()">Back to Quiz List</button>

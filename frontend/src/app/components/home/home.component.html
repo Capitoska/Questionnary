@@ -1,8 +1,7 @@
-<div  class="panel panel-primary">
-    <div  class="panel-heading">
-      <h2>Quizes List</h2>
-    </div>
-    <div class="panel-body main">
+<div class="container col-8">
+  <div class="card">
+    <h2 class="card-header">Quizes List</h2>
+    <div class="card-body">
       <table class="table table-hover table-striped">
         <thead>
           <tr>
@@ -18,10 +17,12 @@
             <td>{{quiz.name}}</td>
             <td>{{quiz.author.username}}</td>
             <td><button (click)="deleteQuiz(quiz.id)" class="btn btn-danger btn-delete">Delete</button>
-                <button (click)="quizDetails(quiz.id)" class="btn btn-info btn-detail" style="margin-left: 10px">Details</button>
+              <button (click)="quizDetails(quiz.id)" class="btn btn-info btn-detail"
+                style="margin-left: 10px">Details</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+</div>
