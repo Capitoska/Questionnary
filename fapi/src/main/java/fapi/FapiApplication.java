@@ -1,5 +1,6 @@
 package fapi;
 
+import fapi.utils.AuthorizationBean;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +25,12 @@ public class FapiApplication {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper;
+    }
+
+    @Bean
+    public AuthorizationBean authorizationBean(){
+        AuthorizationBean authorizationBean = new AuthorizationBean();
+        return authorizationBean;
     }
 
     public static void main(String[] args) {

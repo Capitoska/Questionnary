@@ -14,7 +14,7 @@ export class QuizSaveComponent implements OnInit {
     author: null,
     id: 0,
     isOpen: false,
-    name: "",
+    name: '',
     questions: null
   };
   submitted = false;
@@ -26,6 +26,7 @@ export class QuizSaveComponent implements OnInit {
   }
 
   save() {
+    console.log(this.quiz);
     this.quizService.saveQuiz(this.quiz)
       .subscribe(data => console.log(data), error => console.log(error));
     this.gotoList();

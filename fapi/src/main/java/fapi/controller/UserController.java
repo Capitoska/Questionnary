@@ -43,6 +43,7 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
+    @PreAuthorize("hasRole('admin')")
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);

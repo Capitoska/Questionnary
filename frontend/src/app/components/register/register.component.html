@@ -1,9 +1,6 @@
 <div class="col-md-4 container">
     <div class="card card-container shadow-lg p-3 mb-5 rounded" style="background-color: #f7f7f7">
-        <img id="profile-img" 
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" 
-        class="rounded-circle col-3 container"
-        style="margin-top: 10px;" />
+        <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle col-3 container" style="margin-top: 10px;" />
         <form *ngIf="!isSuccessful" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <div class="form-group col-12">
                 <label for="username">Username</label>

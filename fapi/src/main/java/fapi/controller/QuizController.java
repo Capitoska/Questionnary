@@ -2,6 +2,7 @@ package fapi.controller;
 
 import fapi.dto.QuizDto;
 import fapi.service.QuizService;
+import fapi.utils.AuthorizationBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,8 @@ public class QuizController {
     @Autowired
     private QuizService quizService;
 
+    @Autowired
+    private AuthorizationBean authorizationBean;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<QuizDto> getUserAnswerById(@PathVariable Long id) {
@@ -31,6 +34,7 @@ public class QuizController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<QuizDto> save(@RequestBody QuizDto dto) {
+        dto.setAuthor(authorizationBean.getAuthorizedUserDTO());
         dto = quizService.save(dto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
