@@ -2,7 +2,7 @@ import {IAnswerOption} from './IAnswerOption';
 import {IAnswerType} from './IAnswerType';
 
 export interface IQuestion {
-  id: number;
+  id?: number;
   text: string;
   answerType: IAnswerType;
   rightAnswer: Array<IAnswerOption>;

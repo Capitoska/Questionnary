@@ -12,6 +12,7 @@ dependency-reduced-pom.xml
 *.class
 
 # Log file
+*.log.gz
 *.log
 
 # BlueJ files
