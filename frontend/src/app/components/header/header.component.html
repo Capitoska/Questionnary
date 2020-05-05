@@ -19,6 +19,9 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="register" *ngIf="!isLogged">Sing up</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logOut()" *ngIf="isLogged">Logout</a>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Input quiz name...">
