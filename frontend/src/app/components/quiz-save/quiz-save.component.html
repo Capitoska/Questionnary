@@ -2,27 +2,72 @@
     <div class="card">
         <h2 class="card-header">New quiz</h2>
         <div class="card-body">
-            <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <label for="quizName">Name of quiz</label>
+            <input type="text" class="form-control" name="quizName" [(ngModel)]="quiz.name" required #quizName="ngModel" />
+            <h1 class="card-title">Questions</h1>
+            <div class="list-group-item" *ngFor="let question of this.quiz.questions; let questionId = index">
                 <div class="form-group">
-                    <label for="quizName">Name of quiz</label>
-                    <input type="text" class="form-control" name="quizName" [(ngModel)]="quiz.name" required #quizName="ngModel" />
-                    <div class="alert alert-danger" role="alert" *ngIf="f.submitted && quizName.invalid">
-                        Name is required!
+                    <div class="input-group">
+                        <input id="text" type="text" class="form-control" placeholder="Input question text" [(ngModel)]="question.text" />
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Answer type
+              </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'radio')">One of the list</a
+                >
+                <a
+                  class="dropdown-item"
+                  (click)="selectTypeOfAnswer(questionId, 'checkbox')"
+                  >Several of list
+                </a>
+                                <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'text')">Text
+                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <h1 class="card-title">Questions</h1>
-                <div>
-                    <div class="form-group">
-                        <label for="question">Text</label>
-                        <input type="question" class="form-control" name="quiestion" [(ngModel)]="question.text" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-light btn-block">
-                        Add question
-                    </button>
-                </div>
-            </form>
+                <div class="form-group" *ngFor="let answer of question.possibleAnswer; let answerId = index">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm" *ngIf="question.answerType.value === 'text'">Text</span
+              >
+              <div
+                class="input-group-text"
+                *ngIf="question.answerType.value !== 'text'"
+              >
+                <input type="{{ question.answerType.value }}" disabled />
+              </div>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="answer.value"
+            />
+          </div>
         </div>
+        <div class="form-group">
+          <button
+            class="btn btn-dark btn-block col-4 container"
+            (click)="addAnswer(questionId)"
+          >
+            Add answer
+          </button>
+        </div>
+      </div>
+      <div class="list-group-item">
+        <button
+          class="btn btn-danger btn-block col-8 container"
+          (click)="addQuestion()"
+        >
+          Add question
+        </button>
+      </div>
     </div>
+    <div class="card-footer">
+      <button class="btn btn-primary btn-block">
+        Add quiz
+      </button>
+    </div>
+  </div>
 </div>

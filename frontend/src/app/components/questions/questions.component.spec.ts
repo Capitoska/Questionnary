@@ -1,22 +1,22 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {ProfileComponent} from './profile.component';
+import { QuestionsComponent } from './questions.component';
 import { HttpClientModule } from '@angular/common/http';
 
-describe('ProfileComponent', () => {
-  let component: ProfileComponent;
-  let fixture: ComponentFixture<ProfileComponent>;
+describe('QuestionsComponent', () => {
+  let component: QuestionsComponent;
+  let fixture: ComponentFixture<QuestionsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ],
+      declarations: [ QuestionsComponent ],
       imports: [HttpClientModule]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileComponent);
+    fixture = TestBed.createComponent(QuestionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

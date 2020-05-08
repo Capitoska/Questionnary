@@ -23,6 +23,7 @@ import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
 import {QuizComponent} from './components/quiz/quiz.component';
 import {authInterceptorProviders} from './constants';
 import { DatePipe } from '@angular/common';
+import { QuestionsComponent } from './components/questions/questions.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DatePipe } from '@angular/common';
     ProfileComponent,
     ErrorComponent,
     QuizSaveComponent,
-    QuizComponent
+    QuizComponent,
+    QuestionsComponent
   ],
   imports: [
     HttpClientModule,
