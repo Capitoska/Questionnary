@@ -12,4 +12,5 @@ public class QuizDto {
     private UserDto author;
     private Set<QuestionDto> questions;
     private Boolean isOpen;
+    private String urlAddress;
 }

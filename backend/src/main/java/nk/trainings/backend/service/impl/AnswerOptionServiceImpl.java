@@ -15,7 +15,7 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     AnswerOptionRepository answerOptionRepository;
 
     @Override
-    public Iterable<AnswerOptionEntity> findALL() {
+    public Iterable<AnswerOptionEntity> findAll() {
         return answerOptionRepository.findAll();
     }
 

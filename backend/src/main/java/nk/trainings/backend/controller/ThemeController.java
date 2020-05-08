@@ -22,7 +22,7 @@ public class ThemeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<ThemeEntity> getAllUserAnswer() {
-        return themeService.findALL();
+        return themeService.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)

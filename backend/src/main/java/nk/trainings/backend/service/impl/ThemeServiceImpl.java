@@ -16,7 +16,7 @@ public class ThemeServiceImpl implements ThemeService {
     ThemeRepository themeRepository;
 
     @Override
-    public Iterable<ThemeEntity> findALL() {
+    public Iterable<ThemeEntity> findAll() {
         return themeRepository.findAll();
     }
 

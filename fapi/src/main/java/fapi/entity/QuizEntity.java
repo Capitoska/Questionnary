@@ -12,4 +12,5 @@ public class QuizEntity {
     private UserEntity author;
     private Set<QuestionEntity> questions;
     private Boolean isOpen;
+    private String urlAddress;
 }

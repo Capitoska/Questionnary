@@ -1,5 +1,6 @@
 package fapi.controller;
 
+import fapi.dto.QuizDto;
 import fapi.dto.UserDto;
 import fapi.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -41,6 +42,11 @@ public class UserController {
         dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         dto = userService.save(dto);
         return ResponseEntity.ok(dto);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/quizes")
+    public Iterable<QuizDto> getQuizesAuthorizedUser(){
+        return userService.findAllQuizesByAuthenticateUser();
     }
 
     @PreAuthorize("hasRole('admin')")

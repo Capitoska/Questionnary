@@ -26,7 +26,7 @@ public class UserAnswerController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<UserAnswerEntity> getAllUserAnswer() {
-        return userAnswerService.findALL();
+        return userAnswerService.findAll();
     }
 
 //    todo неккоректная работа сохранения Entity. Продумать.

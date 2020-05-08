@@ -23,7 +23,7 @@ public class QuizEntity {
     private UserEntity author;
 
     @OneToMany
-    @JoinColumn(name = "quiz_id", insertable = false, updatable = false)
+    @JoinColumn(name = "quiz_id")
     private Set<QuestionEntity> questions;
 
     @Column(name = "private")

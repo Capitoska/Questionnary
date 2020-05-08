@@ -20,10 +20,22 @@ public class QuizController {
     @Autowired
     private AuthorizationBean authorizationBean;
 
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    public Iterable<QuizDto> getAllByName(@PathVariable String name) {
+        return quizService.findByName(name);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<QuizDto> getUserAnswerById(@PathVariable Long id) {
         QuizDto quizDto = quizService.findById(id).get();
         return ResponseEntity.ok(quizDto);
+    }
+
+    @RequestMapping(value = "/{id}/generate-url", method = RequestMethod.PUT)
+//    @RequestMapping(value = "/{id}/new-url", method = RequestMethod.PUT)
+    public HttpStatus generateUrl(@PathVariable Long id) {
+        boolean generated = quizService.generateUrlAddress(quizService.findById(id).get());
+        return HttpStatus.NO_CONTENT;
     }
 
     @RequestMapping

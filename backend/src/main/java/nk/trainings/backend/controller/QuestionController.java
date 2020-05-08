@@ -23,7 +23,7 @@ public class QuestionController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<QuestionEntity> getAllQuestionAnswer() {
-        return questionService.findALL();
+        return questionService.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)

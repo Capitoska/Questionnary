@@ -1,6 +1,7 @@
 package fapi;
 
 import fapi.utils.AuthorizationBean;
+import fapi.utils.Base64Bean;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,8 +11,14 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class FapiApplication {
 
+
     @Bean
-    public RestTemplate restTemplate(){
+    public Base64Bean base64Bean() {
+        return new Base64Bean();
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
@@ -28,7 +35,7 @@ public class FapiApplication {
     }
 
     @Bean
-    public AuthorizationBean authorizationBean(){
+    public AuthorizationBean authorizationBean() {
         AuthorizationBean authorizationBean = new AuthorizationBean();
         return authorizationBean;
     }

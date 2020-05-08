@@ -16,7 +16,7 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     UserAnswerRepository userAnswerRepository;
 
     @Override
-    public Iterable<UserAnswerEntity> findALL() {
+    public Iterable<UserAnswerEntity> findAll() {
         return userAnswerRepository.findAll();
     }
 

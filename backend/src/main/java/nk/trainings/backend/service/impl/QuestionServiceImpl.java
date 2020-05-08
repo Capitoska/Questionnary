@@ -16,7 +16,7 @@ public class QuestionServiceImpl implements QuestionService {
     QuestionRepository questionRepository;
 
     @Override
-    public Iterable<QuestionEntity> findALL() {
+    public Iterable<QuestionEntity> findAll() {
         return questionRepository.findAll();
     }
 

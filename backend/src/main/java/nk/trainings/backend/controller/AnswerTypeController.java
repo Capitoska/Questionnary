@@ -23,7 +23,7 @@ public class AnswerTypeController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<AnswerTypeEntity> getAllAnswerTypeAnswer() {
-        return answerTypeService.findALL();
+        return answerTypeService.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)

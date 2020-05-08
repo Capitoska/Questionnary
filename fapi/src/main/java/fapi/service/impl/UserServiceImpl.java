@@ -1,9 +1,13 @@
 package fapi.service.impl;
 
+import fapi.dto.QuizDto;
 import fapi.dto.UserDto;
+import fapi.dto.converter.QuizConverter;
 import fapi.dto.converter.UserConverter;
+import fapi.entity.QuizEntity;
 import fapi.entity.UserEntity;
 import fapi.service.UserService;
+import fapi.utils.AuthorizationBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,10 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("defaultUserDetailsService")
@@ -27,6 +28,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private QuizConverter quizConverter;
+
+    @Autowired
+    private AuthorizationBean authorizationBean;
 
     @Autowired
     private UserConverter userConverter;
@@ -78,6 +85,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return authorities;
+    }
+
+
+    //todo когда будет храниться в spring Security username и id. исправить работу.
+    //todo проверку на null сделать!
+    @Override
+    public List<QuizDto> findAllQuizesByAuthenticateUser() {
+        UserEntity userEntity = userConverter.toEntity(authorizationBean.getAuthorizedUserDTO());
+        QuizEntity[] quizEntities = restTemplate.getForObject(backendUserUrl+userEntity.getId() + "/quizes/",QuizEntity[].class);
+
+        return quizConverter.ToDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
     }
 
 //    @Override

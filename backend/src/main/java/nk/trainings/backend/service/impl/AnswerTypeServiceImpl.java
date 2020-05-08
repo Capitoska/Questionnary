@@ -16,7 +16,7 @@ public class AnswerTypeServiceImpl implements AnswerTypeService {
     AnswerTypeRepository answerTypeRepository;
 
     @Override
-    public Iterable<AnswerTypeEntity> findALL() {
+    public Iterable<AnswerTypeEntity> findAll() {
         return answerTypeRepository.findAll();
     }
 

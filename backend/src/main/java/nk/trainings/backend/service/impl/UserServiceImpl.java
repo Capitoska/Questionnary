@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
 
     @Override
-    public Iterable<UserEntity> findALL() {
+    public Iterable<UserEntity> findAll() {
         return userRepository.findAll();
     }
 

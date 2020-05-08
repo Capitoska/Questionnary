@@ -3,7 +3,7 @@ package nk.trainings.backend.service;
 import java.util.Optional;
 
 public interface DefaultService<T>  {
-    Iterable<T> findALL();
+    Iterable<T> findAll();
 
     Optional<T> findById(Long id);
 
