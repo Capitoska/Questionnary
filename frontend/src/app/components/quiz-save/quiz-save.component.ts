@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {QuizService} from 'src/app/services/quiz.service';
 import {IQuiz} from 'src/app/interfaces/IQuiz';
+import { IQuestion } from 'src/app/interfaces/IQuestion';
 
 @Component({
   selector: 'app-quiz-save',
@@ -15,14 +16,18 @@ export class QuizSaveComponent implements OnInit {
     id: 0,
     isOpen: false,
     name: '',
-    questions: null
+    questions: Array<IQuestion>()
   };
+
+  question: IQuestion;
+
   submitted = false;
 
   constructor(private quizService: QuizService, private router: Router) {
   }
 
   ngOnInit() {
+    this.setQuestionisUndefined();
   }
 
   save() {
@@ -39,6 +44,16 @@ export class QuizSaveComponent implements OnInit {
 
   gotoList() {
     this.router.navigate(['']);
+  }
+
+  setQuestionisUndefined(): void {
+    this.question = {
+      id: undefined,
+      text: undefined,
+      answerType: undefined,
+      possibleAnswer: undefined,
+      rightAnswer: undefined,
+    };
   }
 }
 

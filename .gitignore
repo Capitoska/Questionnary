@@ -12,6 +12,7 @@ dependency-reduced-pom.xml
 *.class
 
 # Log file
+/backend/WorkingDirectory/logs
 *.log
 
 # BlueJ files
