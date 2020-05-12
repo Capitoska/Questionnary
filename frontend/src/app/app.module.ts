@@ -17,12 +17,13 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ErrorComponent} from './components/error/error.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
 import {QuizComponent} from './components/quiz/quiz.component';
 import {authInterceptorProviders} from './constants';
 import { DatePipe } from '@angular/common';
+import { QuestionsComponent } from './components/questions/questions.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { DatePipe } from '@angular/common';
     ProfileComponent,
     ErrorComponent,
     QuizSaveComponent,
-    QuizComponent
+    QuizComponent,
+    QuestionsComponent
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +50,8 @@ import { DatePipe } from '@angular/common';
     MatInputModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     authInterceptorProviders,

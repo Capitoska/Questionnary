@@ -1,22 +1,80 @@
-<div [hidden]="submitted" style="width: 500px; margin-left: 20%;">
-    <h3>New Quiz click here to create</h3>
-    <form (ngSubmit)="onSubmit()">
-        <div>
-            <mat-form-field class="example-full-width">
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Some quiz..." [(ngModel)]="quiz.name" [ngModelOptions]="{standalone: true}">
-            </mat-form-field>
+<div class="container col-7">
+    <div class="card">
+        <h2 class="card-header">New quiz</h2>
+        <div class="card-body">
+            <form [formGroup]="quizForm">
+                <label for="quizName">Name of quiz</label>
+                <input type="text" class="form-control" name="quizName" formControlName="name" required />
+                <h1 class="card-title">Questions</h1>
+                <div class="list-group-item" formArrayName="questions" *ngFor="let question of this.questions.controls; let questionId = index">
+                    <div [formGroupName]="questionId">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="text" type="text" class="form-control" placeholder="Input question text" formControlName="text" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Answer type
+                  </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'radio')">One of the list</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      (click)="selectTypeOfAnswer(questionId, 'checkbox')"
+                      >Several of list
+                    </a>
+                                        <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'text')">Text
+                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" formArrayName="answers" *ngFor="
+                let answer of getAnswersOfQuestion(questionId).controls;
+                let answerId = index
+              ">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm" *ngIf="getAnswerType(questionId) === 'text'">Text</span
+                  >
+                  <div
+                    class="input-group-text"
+                    *ngIf="getAnswerType(questionId) !== 'text'"
+                  >
+                    <input type="{{ getAnswerType(questionId) }}" disabled />
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="answerId"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <button
+                class="btn btn-dark btn-block col-4 container"
+                (click)="addAnswer(questionId)"
+              >
+                Add answer
+              </button>
+            </div>
+          </div>
         </div>
-
-        <!--    <div class="form-group">-->
-        <!--      <label for="author">Author</label>-->
-        <!--      <input matInput type="text" class="form-control" id="author" required [(ngModel)]="quiz.author.username" name="author">-->
-        <!--    </div>-->
-
-        <button mat-raised-button type="submit" color="primary">Submit</button>
-    </form>
-</div>
-
-<div [hidden]="!submitted">
-    <h4>You submitted successfully!</h4>
+        <div class="list-group-item">
+          <button
+            class="btn btn-danger btn-block col-8 container"
+            (click)="addQuestion()"
+          >
+            Add question
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary btn-block" (click)="saveQuiz()">
+        Add quiz
+      </button>
+    </div>
+  </div>
 </div>
