@@ -2,70 +2,77 @@
     <div class="card">
         <h2 class="card-header">New quiz</h2>
         <div class="card-body">
-            <label for="quizName">Name of quiz</label>
-            <input type="text" class="form-control" name="quizName" [(ngModel)]="quiz.name" required #quizName="ngModel" />
-            <h1 class="card-title">Questions</h1>
-            <div class="list-group-item" *ngFor="let question of this.quiz.questions; let questionId = index">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input id="text" type="text" class="form-control" placeholder="Input question text" [(ngModel)]="question.text" />
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Answer type
-              </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'radio')">One of the list</a
-                >
-                <a
-                  class="dropdown-item"
-                  (click)="selectTypeOfAnswer(questionId, 'checkbox')"
-                  >Several of list
-                </a>
-                                <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'text')">Text
-                </a>
+            <form [formGroup]="quizForm">
+                <label for="quizName">Name of quiz</label>
+                <input type="text" class="form-control" name="quizName" formControlName="name" required />
+                <h1 class="card-title">Questions</h1>
+                <div class="list-group-item" formArrayName="questions" *ngFor="let question of this.questions.controls; let questionId = index">
+                    <div [formGroupName]="questionId">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="text" type="text" class="form-control" placeholder="Input question text" formControlName="text" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Answer type
+                  </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'radio')">One of the list</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      (click)="selectTypeOfAnswer(questionId, 'checkbox')"
+                      >Several of list
+                    </a>
+                                        <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'text')">Text
+                    </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group" formArrayName="answers" *ngFor="
+                let answer of getAnswersOfQuestion(questionId).controls;
+                let answerId = index
+              ">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm" *ngIf="getAnswerType(questionId) === 'text'">Text</span
+                  >
+                  <div
+                    class="input-group-text"
+                    *ngIf="getAnswerType(questionId) !== 'text'"
+                  >
+                    <input type="{{ getAnswerType(questionId) }}" disabled />
+                  </div>
                 </div>
-                <div class="form-group" *ngFor="let answer of question.possibleAnswer; let answerId = index">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm" *ngIf="question.answerType.value === 'text'">Text</span
-              >
-              <div
-                class="input-group-text"
-                *ngIf="question.answerType.value !== 'text'"
-              >
-                <input type="{{ question.answerType.value }}" disabled />
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="answerId"
+                />
               </div>
             </div>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="answer.value"
-            />
+            <div class="form-group">
+              <button
+                class="btn btn-dark btn-block col-4 container"
+                (click)="addAnswer(questionId)"
+              >
+                Add answer
+              </button>
+            </div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="list-group-item">
           <button
-            class="btn btn-dark btn-block col-4 container"
-            (click)="addAnswer(questionId)"
+            class="btn btn-danger btn-block col-8 container"
+            (click)="addQuestion()"
           >
-            Add answer
+            Add question
           </button>
         </div>
-      </div>
-      <div class="list-group-item">
-        <button
-          class="btn btn-danger btn-block col-8 container"
-          (click)="addQuestion()"
-        >
-          Add question
-        </button>
-      </div>
+      </form>
     </div>
     <div class="card-footer">
-      <button class="btn btn-primary btn-block">
+      <button type="submit" class="btn btn-primary btn-block" (click)="saveQuiz()">
         Add quiz
       </button>
     </div>

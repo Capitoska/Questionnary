@@ -17,7 +17,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ErrorComponent} from './components/error/error.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
 import {QuizComponent} from './components/quiz/quiz.component';
@@ -50,7 +50,8 @@ import { QuestionsComponent } from './components/questions/questions.component';
     MatInputModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     authInterceptorProviders,
