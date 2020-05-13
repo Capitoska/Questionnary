@@ -26,11 +26,13 @@
                                         <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'text')">Text
                     </a>
                                     </div>
+                                    <button type="button" class="btn btn-outline-secondary" (click)="removeQuestion(questionId)">Delele question</button>
+
                                 </div>
                             </div>
                         </div>
                         <div class="form-group" formArrayName="answers" *ngFor="
-                let answer of getAnswersOfQuestion(questionId).controls;
+                let answer of getAnswers(questionId).controls;
                 let answerId = index
               ">
                             <div class="input-group">
@@ -49,6 +51,7 @@
                   class="form-control"
                   [formControlName]="answerId"
                 />
+                <button type="button" class="btn btn-outline-danger" (click)="removeAnswer(questionId, answerId)">X</button>
               </div>
             </div>
             <div class="form-group">
