@@ -12,9 +12,20 @@ export class HeaderComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    this.token = this.tokenStorage.getToken();
-    if (this.token) {
+    this.checkLogin();
+  }
+
+  logOut(): void {
+    this.tokenStorage.removeToken();
+    this.checkLogin();
+  }
+
+  checkLogin() {
+     this.token = this.tokenStorage.getToken();
+     if (this.token) {
       this.isLogged = true;
-    }
+     } else {
+       this.isLogged = false;
+     }
   }
 }
