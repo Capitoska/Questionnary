@@ -61,13 +61,17 @@ export class QuizSaveComponent implements OnInit {
     return this.questions.controls[questionId].get('answerType').value;
   }
 
+  getAnswers(questionId: number): FormArray {
+    return this.questions.controls[questionId].get('answers') as FormArray;
+  }
+
   addQuestion(): void {
     this.questions.controls.push(this.createNewQuestion());
   }
 
   addAnswer(questionId: number): void {
-    const question = this.questions.controls[questionId].get('answers') as FormArray;
-    question.push(this.createAnswer());
+    const answers = this.getAnswers(questionId);
+    answers.push(this.createAnswer());
   }
 
   save() {
@@ -84,5 +88,14 @@ export class QuizSaveComponent implements OnInit {
 
   selectTypeOfAnswer(questionNumber: number, type: 'checkbox' | 'radio' | 'text'): void {
     this.questions.controls[questionNumber].patchValue({answerType: type});
+  }
+
+  removeAnswer(questionId: number, answerId: number): void {
+    const answers = this.getAnswers(questionId);
+    answers.removeAt(answerId);
+  }
+
+  removeQuestion(questionId: number): void {
+    this.questions.removeAt(questionId);
   }
 }
