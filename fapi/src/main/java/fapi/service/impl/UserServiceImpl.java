@@ -6,6 +6,7 @@ import fapi.dto.converter.QuizConverter;
 import fapi.dto.converter.UserConverter;
 import fapi.entity.QuizEntity;
 import fapi.entity.UserEntity;
+import fapi.security.JwtUserFactory;
 import fapi.service.UserService;
 import fapi.utils.AuthorizationBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(userDto == null){
             throw new UsernameNotFoundException("Username or password not found");
         }
-        return new org.springframework.security.core.userdetails.User(userDto.getUsername(), userDto.getPassword(), getAuthority(userDto));
+        return JwtUserFactory.create(userConverter.toEntity(userDto));
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(UserDto user) {
