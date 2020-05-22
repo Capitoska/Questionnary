@@ -33,4 +33,9 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     public void deleteById(Long id) {
         answerOptionRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<AnswerOptionEntity> findByValue(String value) {
+        return answerOptionRepository.findByValue(value);
+    }
 }

@@ -3,6 +3,7 @@ package fapi.service.impl;
 import fapi.dto.QuizDto;
 import fapi.dto.converter.QuizConverter;
 import fapi.entity.QuizEntity;
+import fapi.service.QuestionService;
 import fapi.service.QuizService;
 import fapi.utils.Base64Bean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class QuizServiceImpl implements QuizService {
     RestTemplate restTemplate;
 
     @Autowired
+    QuestionService questionService;
+
+    @Autowired
     QuizConverter quizConverter;
 
     @Autowired
@@ -46,6 +50,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public QuizDto save(QuizDto dto) {
+        dto.setQuestions(questionService.saveAll(dto.getQuestions()));
         restTemplate.postForObject(backendQuizUrl, quizConverter.toEntity(dto), QuizEntity.class);
         return null;
     }

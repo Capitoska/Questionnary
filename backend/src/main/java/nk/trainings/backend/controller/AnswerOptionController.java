@@ -21,6 +21,11 @@ public class AnswerOptionController {
         return answerOptionEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @RequestMapping(value = "/value/{value}", method = RequestMethod.GET)
+    public Optional<AnswerOptionEntity> getByValue(@PathVariable(name = "value") String value){
+        return answerOptionService.findByValue(value);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "")
     public Iterable<AnswerOptionEntity> getAllAnswerOptionAnswer() {
         return answerOptionService.findAll();
