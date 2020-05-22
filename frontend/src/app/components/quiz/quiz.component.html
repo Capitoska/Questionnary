@@ -1,13 +1,45 @@
 <div class="container col-7">
-  <h2 class="card-title">Quiz Details</h2>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><b>Name: </b> {{quiz.name}}</li>
-    <li class="list-group-item"><b>Author's username: </b> {{quiz.author.username}}</li>
-    <li class="list-group-item"><b>Author: </b> {{quiz.author.firstName}} {{quiz.author.secondName}}
-      {{quiz.author.thirdName}}</li>
-    <li class="list-group-item"><b>Email: </b> {{quiz.email}}</li>
-  </ul>
-  <div class="card-footer">
-    <button type="button" class="btn btn-light" (click)="quizList()">Back to Quiz List</button>
-  </div>
+    <div class="card">
+        <h2 class="card-header">{{ quiz.name }}</h2>
+        <div class="card-body">
+            <p class="card-text">{{ quiz.description }}</p>
+            <div class="row mx-md-n5">
+                <div class="col px-md-5">
+                    <div class="p-3">
+                        <b>Creator:</b> {{ quiz.author.username }} <br />({{ quiz.author.secondName }} {{ quiz.author.firstName }} {{ quiz.author.thirdName }})
+                    </div>
+                </div>
+                <div class="col px-md-5">
+                    <div class="p-3">
+                        {{ quiz.author.email ? quiz.author.email : "" }}
+                    </div>
+                </div>
+            </div>
+            <h1 class="card-header">Questions</h1>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let question of quiz.questions; let questionId = index">
+                    <h4>{{question.text}}</h4>
+                    <div *ngFor="let answer of question.possibleAnswer; let answerId = index">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input *ngIf="question.answerType.value !== 'text'" type="{{question.answerType.value}}" (click)="checkAnswer(questionId, answerId)" [checked]="answer.isChecked">
+                                    <span *ngIf="question.answerType.value==='text' ">Answer</span>
+                                </div>
+                            </div>
+                            <input type="text " class="form-control " aria-label="Text input with checkbox " [disabled]="question.answerType.value !=='text'" [(ngModel)]="answer.value">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer ">
+            <button type="button" class="btn btn-light" (click)="quizList() ">
+        Back to Quiz List
+      </button>
+            <button type="button" class="btn btn-primary" (click)="saveAnswers()">
+        Save answers
+      </button>
+        </div>
+    </div>
 </div>
