@@ -1,17 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz.service';
-import { IQuiz } from 'src/app/interfaces/IQuiz';
-import { IQuestion } from 'src/app/interfaces/IQuestion';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
-
-const quizTemplate: IQuiz = {
-  author: null,
-  id: 0,
-  isOpen: false,
-  name: '',
-  questions: [],
-};
+import { QuizCreateService } from 'src/app/services/quiz-create.service';
 
 @Component({
   selector: 'app-quiz-save',
@@ -19,63 +9,20 @@ const quizTemplate: IQuiz = {
   styleUrls: ['./quiz-save.component.scss'],
 })
 export class QuizSaveComponent implements OnInit {
-  submitted = false;
-  quiz: IQuiz;
-  quizForm: FormGroup;
+  get quizForm(): FormGroup {
+    return this.quizCreate.quizForm;
+  }
 
   get questions() {
-    return this.quizForm.get('questions') as FormArray;
+    return this.quizCreate.questions;
   }
 
-  constructor(private quizService: QuizService, private router: Router) {
-    this.quizForm = this.createQuizForm();
-    console.log(this.quizForm);
-  }
+  constructor(private quizService: QuizService, private quizCreate: QuizCreateService) { }
 
   ngOnInit() {}
 
-  private createQuizForm(): FormGroup {
-    return new FormGroup({
-      name: new FormControl(null),
-      questions: new FormArray([this.createNewQuestion()]),
-    });
-  }
-
-  private createNewQuestion(): FormGroup {
-    return new FormGroup({
-      text: new FormControl(null),
-      answerType: new FormControl('radio'),
-      answers: new FormArray([this.createAnswer()]),
-    });
-  }
-
-  createAnswer(): FormControl {
-    return new FormControl(null);
-  }
-
-  getAnswersOfQuestion(questionId: number): FormArray {
-    return this.questions.controls[questionId].get('answers') as FormArray;
-  }
-
-  getAnswerType(questionId: number): string {
-    return this.questions.controls[questionId].get('answerType').value;
-  }
-
-  getAnswers(questionId: number): FormArray {
-    return this.questions.controls[questionId].get('answers') as FormArray;
-  }
-
-  addQuestion(): void {
-    this.questions.controls.push(this.createNewQuestion());
-  }
-
-  addAnswer(questionId: number): void {
-    const answers = this.getAnswers(questionId);
-    answers.push(this.createAnswer());
-  }
-
   save() {
-    this.quizService.saveQuiz(this.quiz).subscribe(
+    this.quizService.saveQuiz(this.quizForm.value).subscribe(
       (data) => console.log(data),
       (error) => console.log(error)
     );
@@ -83,19 +30,5 @@ export class QuizSaveComponent implements OnInit {
 
   saveQuiz() {
     console.log(this.quizForm.value);
-
-  }
-
-  selectTypeOfAnswer(questionNumber: number, type: 'checkbox' | 'radio' | 'text'): void {
-    this.questions.controls[questionNumber].patchValue({answerType: type});
-  }
-
-  removeAnswer(questionId: number, answerId: number): void {
-    const answers = this.getAnswers(questionId);
-    answers.removeAt(answerId);
-  }
-
-  removeQuestion(questionId: number): void {
-    this.questions.removeAt(questionId);
   }
 }

@@ -23,7 +23,11 @@ export class QuizService {
     return this.http.delete(`${apiBaseUrl}/quizes/${id}`);
   }
 
-  saveQuiz(quiz: IQuiz) {
+  saveQuiz(quiz: IQuiz): Observable<any> {
     return this.http.post(`${apiBaseUrl}/quizes/`, quiz);
+  }
+
+  saveAnswers(answers: Array<any>): Observable<any> {
+    return this.http.post(`${apiBaseUrl}/user-answers/`, answers);
   }
 }
