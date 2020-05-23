@@ -21,14 +21,11 @@ export class QuizSaveComponent implements OnInit {
 
   ngOnInit() {}
 
-  save() {
+  onSubmit() {
+    console.warn(this.quizForm.value);
     this.quizService.saveQuiz(this.quizForm.value).subscribe(
       (data) => console.log(data),
       (error) => console.log(error)
     );
-  }
-
-  saveQuiz() {
-    console.log(this.quizForm.value);
   }
 }
