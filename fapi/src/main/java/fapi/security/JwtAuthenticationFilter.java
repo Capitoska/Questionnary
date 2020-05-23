@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -58,10 +57,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // if token is valid configure Spring Security to manually set authentication
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
+            JwtUser userDetails = (JwtUser) userDetailsService.loadUserByUsername(userName);
             if (tokenProvider.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
+//                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+//                        userDetails, null, userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication = tokenProvider.getAuthentication
+                        (authToken,SecurityContextHolder.getContext().getAuthentication(),userDetails);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                 logger.info("Authenticated user " + userName + ", setting security context.");
                 SecurityContextHolder.getContext().setAuthentication(authentication);

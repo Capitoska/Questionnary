@@ -25,13 +25,11 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     @Autowired
     AnswerOptionConverter answerOptionConverter;
 
-
-
     @Override
     public Iterable<AnswerOptionDto> findALL() {
         AnswerOptionEntity[] AnswerOptionEntities = restTemplate.getForObject(backendAnswerOptionUrl,AnswerOptionEntity[].class);
         return AnswerOptionEntities.length== 0? null:
-                answerOptionConverter.ToDtoList(Arrays.stream(AnswerOptionEntities).collect(Collectors.toList()));
+                 answerOptionConverter.ToDtoList(Arrays.stream(AnswerOptionEntities).collect(Collectors.toList()));
     }
 
     @Override
@@ -40,14 +38,21 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
         return Optional.ofNullable(answerOptionConverter.toDto(AnswerOptionEntity));
     }
 
+
     @Override
     public AnswerOptionDto save(AnswerOptionDto dto) {
-        restTemplate.postForObject(backendAnswerOptionUrl,answerOptionConverter.toEntity(dto),AnswerOptionEntity.class);
-        return null;
+        AnswerOptionEntity answerOptionEntity = restTemplate.postForObject(backendAnswerOptionUrl,answerOptionConverter.toEntity(dto),AnswerOptionEntity.class);
+        return answerOptionConverter.toDto(answerOptionEntity);
     }
 
     @Override
     public void deleteById(Long id) {
         restTemplate.delete(backendAnswerOptionUrl + id);
+    }
+
+    @Override
+    public Optional<AnswerOptionDto> getByValue(String value) {
+        AnswerOptionEntity answerOptionEntity = restTemplate.getForObject(backendAnswerOptionUrl +"value/" + value,AnswerOptionEntity.class);
+        return Optional.ofNullable(answerOptionConverter.toDto(answerOptionEntity));
     }
 }
