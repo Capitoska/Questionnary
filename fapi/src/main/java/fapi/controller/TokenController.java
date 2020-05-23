@@ -35,8 +35,8 @@ public class TokenController {
 
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInDto signInDto) throws Exception{
-        authenticate(signInDto.getUsername(),signInDto.getPassword());
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInDto signInDto) throws Exception {
+        authenticate(signInDto.getUsername(), signInDto.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(signInDto.getUsername());
         final String token = tokenProvider.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));

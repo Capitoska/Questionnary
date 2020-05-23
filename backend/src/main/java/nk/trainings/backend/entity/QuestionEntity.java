@@ -23,14 +23,6 @@ public class QuestionEntity {
 
     @ManyToMany
     @JoinTable(
-            name = "right_answers",
-            joinColumns = @JoinColumn(name = "question_id"),
-            inverseJoinColumns = @JoinColumn(name = "answer_id")
-    )
-    private Set<AnswerOptionEntity> rightAnswer;
-
-    @ManyToMany
-    @JoinTable(
             name = "questions_answer_options",
             joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "answer_id")

@@ -20,6 +20,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -38,12 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationFilter();
     }
 
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-// configure AuthenticationManager so that it knows from where to load
-// user for matching credentials
-// Use BCryptPasswordEncoder
+        // configure AuthenticationManager so that it knows from where to load
+        // user for matching credentials
+        // Use BCryptPasswordEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
@@ -63,20 +64,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
     }
 
-//    todo разобраться в corsConfigurationSource
+    //    todo разобраться в corsConfigurationSource
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "DELETE", "PUT"));
+        configuration.setAllowedHeaders(Collections.singletonList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
-//  todo  anyRequest().authenticated() разобрать!!!!
+    //  todo  anyRequest().authenticated() разобрать!!!!
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/fapi/token/authenticate","/api/fapi/users/**").permitAll()
+                .antMatchers("/api/fapi/token/authenticate", "/api/fapi/users/**").permitAll()
+                .antMatchers("/api/fapi/themes/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHeader)

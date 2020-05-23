@@ -27,21 +27,21 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
 
     @Override
     public Iterable<AnswerOptionDto> findALL() {
-        AnswerOptionEntity[] AnswerOptionEntities = restTemplate.getForObject(backendAnswerOptionUrl,AnswerOptionEntity[].class);
-        return AnswerOptionEntities.length== 0? null:
-                 answerOptionConverter.ToDtoList(Arrays.stream(AnswerOptionEntities).collect(Collectors.toList()));
+        AnswerOptionEntity[] AnswerOptionEntities = restTemplate.getForObject(backendAnswerOptionUrl, AnswerOptionEntity[].class);
+        return AnswerOptionEntities.length == 0 ? null :
+                answerOptionConverter.ToDtoList(Arrays.stream(AnswerOptionEntities).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<AnswerOptionDto> findById(Long id) {
-        AnswerOptionEntity AnswerOptionEntity = restTemplate.getForObject(backendAnswerOptionUrl + id,AnswerOptionEntity.class);
+        AnswerOptionEntity AnswerOptionEntity = restTemplate.getForObject(backendAnswerOptionUrl + id, AnswerOptionEntity.class);
         return Optional.ofNullable(answerOptionConverter.toDto(AnswerOptionEntity));
     }
 
 
     @Override
     public AnswerOptionDto save(AnswerOptionDto dto) {
-        AnswerOptionEntity answerOptionEntity = restTemplate.postForObject(backendAnswerOptionUrl,answerOptionConverter.toEntity(dto),AnswerOptionEntity.class);
+        AnswerOptionEntity answerOptionEntity = restTemplate.postForObject(backendAnswerOptionUrl, answerOptionConverter.toEntity(dto), AnswerOptionEntity.class);
         return answerOptionConverter.toDto(answerOptionEntity);
     }
 
@@ -52,7 +52,7 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
 
     @Override
     public Optional<AnswerOptionDto> getByValue(String value) {
-        AnswerOptionEntity answerOptionEntity = restTemplate.getForObject(backendAnswerOptionUrl +"value/" + value,AnswerOptionEntity.class);
+        AnswerOptionEntity answerOptionEntity = restTemplate.getForObject(backendAnswerOptionUrl + "value/" + value, AnswerOptionEntity.class);
         return Optional.ofNullable(answerOptionConverter.toDto(answerOptionEntity));
     }
 }

@@ -3,6 +3,7 @@ package fapi.controller;
 import fapi.dto.QuizDto;
 import fapi.service.QuizService;
 import fapi.utils.AuthorizationBean;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Log4j2
 @RequestMapping("/api/fapi/quizes")
 public class QuizController {
 
@@ -32,7 +34,6 @@ public class QuizController {
     }
 
     @RequestMapping(value = "/{id}/generate-url", method = RequestMethod.PUT)
-//    @RequestMapping(value = "/{id}/new-url", method = RequestMethod.PUT)
     public HttpStatus generateUrl(@PathVariable Long id) {
         boolean generated = quizService.generateUrlAddress(quizService.findById(id).get());
         return HttpStatus.NO_CONTENT;
@@ -46,6 +47,7 @@ public class QuizController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<QuizDto> save(@RequestBody QuizDto dto) {
+        log.info("Work save for QuizEntity");
         dto.setAuthor(authorizationBean.getAuthorizedUserDTO());
         dto = quizService.save(dto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);

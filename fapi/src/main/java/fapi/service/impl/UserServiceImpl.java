@@ -11,6 +11,7 @@ import fapi.service.UserService;
 import fapi.utils.AuthorizationBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -41,8 +42,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Iterable<UserDto> findALL() {
-        UserEntity []userEntity = restTemplate.getForObject(backendUserUrl, UserEntity[].class);
-        return userEntity == null ?null: userConverter.ToDtoList(Arrays.stream(userEntity).collect(Collectors.toList()));
+        UserEntity[] userEntity = restTemplate.getForObject(backendUserUrl, UserEntity[].class);
+        return userEntity == null ? null : userConverter.ToDtoList(Arrays.stream(userEntity).collect(Collectors.toList()));
     }
 
     @Override
@@ -56,27 +57,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDto save(UserDto dto) {
         RestTemplate restTemplate = new RestTemplate();
         UserEntity userEntity = userConverter.toEntity(dto);
-        restTemplate.postForObject(backendUserUrl,userEntity,UserEntity.class);
+        restTemplate.postForObject(backendUserUrl, userEntity, UserEntity.class);
         return userConverter.toDto(userEntity);
     }
 
-    public UserDto findByUsername(String username){
+    public UserDto findByUsername(String username) {
         UserEntity userEntity = restTemplate.getForObject(backendUserUrl + "login/" + username, UserEntity.class);
         return userConverter.toDto(userEntity);
     }
 
     @Override
+    @PreAuthorize(value = "admin")
     public void deleteById(Long id) {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.delete(backendUserUrl + id);
     }
 
 
-//    todo заполнить загрузку юзера по его юзернэйму
+    //    todo заполнить загрузку юзера по его юзернэйму
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto userDto = findByUsername(username);
-        if(userDto == null){
+        if (userDto == null) {
             throw new UsernameNotFoundException("Username or password not found");
         }
         return JwtUserFactory.create(userConverter.toEntity(userDto));
@@ -94,7 +96,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<QuizDto> findAllQuizesByAuthenticateUser() {
         UserEntity userEntity = userConverter.toEntity(authorizationBean.getAuthorizedUserDTO());
-        QuizEntity[] quizEntities = restTemplate.getForObject(backendUserUrl+userEntity.getId() + "/quizes/",QuizEntity[].class);
+        QuizEntity[] quizEntities = restTemplate.getForObject(backendUserUrl + userEntity.getId() + "/quizes/", QuizEntity[].class);
 
         return quizConverter.ToDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
     }

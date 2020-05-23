@@ -18,7 +18,7 @@ public class UserAnswerEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "answer_id" )
+    @JoinColumn(name = "answer_id")
     private AnswerOptionEntity answer;
 
 }

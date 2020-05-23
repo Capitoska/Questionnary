@@ -26,20 +26,20 @@ public class UserAnswerServiceImpl implements UserAnswerService {
 
     @Override
     public Iterable<UserAnswerDto> findALL() {
-        UserAnswerEntity[] userAnswerEntities = restTemplate.getForObject(backendUserAnswerUrl,UserAnswerEntity[].class);
-        return userAnswerEntities.length == 0 ? null:
-        userAnswerConverter.ToDtoList(Arrays.stream(userAnswerEntities).collect(Collectors.toList()));
+        UserAnswerEntity[] userAnswerEntities = restTemplate.getForObject(backendUserAnswerUrl, UserAnswerEntity[].class);
+        return userAnswerEntities.length == 0 ? null :
+                userAnswerConverter.ToDtoList(Arrays.stream(userAnswerEntities).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<UserAnswerDto> findById(Long id) {
-        UserAnswerEntity userAnswerEntity = restTemplate.getForObject(backendUserAnswerUrl + id,UserAnswerEntity.class);
+        UserAnswerEntity userAnswerEntity = restTemplate.getForObject(backendUserAnswerUrl + id, UserAnswerEntity.class);
         return Optional.ofNullable(userAnswerConverter.toDto(userAnswerEntity));
     }
 
     @Override
     public UserAnswerDto save(UserAnswerDto dto) {
-        restTemplate.postForObject(backendUserAnswerUrl,userAnswerConverter.toEntity(dto),UserAnswerEntity.class);
+        restTemplate.postForObject(backendUserAnswerUrl, userAnswerConverter.toEntity(dto), UserAnswerEntity.class);
         return null;
     }
 

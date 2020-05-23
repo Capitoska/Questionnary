@@ -14,11 +14,11 @@ public class QuestionConverter implements DefaultConverter<QuestionDto, Question
 
     @Override
     public QuestionDto toDto(QuestionEntity questionEntity) {
-        return questionEntity == null?null: mapper.map(questionEntity, QuestionDto.class);
+        return questionEntity == null ? null : mapper.map(questionEntity, QuestionDto.class);
     }
 
     @Override
     public QuestionEntity toEntity(QuestionDto questionDTO) {
-        return questionDTO == null?null: mapper.map(questionDTO,QuestionEntity.class);
+        return questionDTO == null ? null : mapper.map(questionDTO, QuestionEntity.class);
     }
 }

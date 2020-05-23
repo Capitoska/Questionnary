@@ -35,31 +35,31 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Iterable<QuestionDto> findALL() {
-        QuestionEntity[] themeEntities = restTemplate.getForObject(backendQuestionUrl,QuestionEntity[].class);
-        return themeEntities.length== 0? null:
+        QuestionEntity[] themeEntities = restTemplate.getForObject(backendQuestionUrl, QuestionEntity[].class);
+        return themeEntities.length == 0 ? null :
                 questionConverter.ToDtoList(Arrays.stream(themeEntities).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<QuestionDto> findById(Long id) {
-        QuestionEntity questionEntity = restTemplate.getForObject(backendQuestionUrl + id,QuestionEntity.class);
+        QuestionEntity questionEntity = restTemplate.getForObject(backendQuestionUrl + id, QuestionEntity.class);
         return Optional.ofNullable(questionConverter.toDto(questionEntity));
     }
 
     @Override
     public QuestionDto save(QuestionDto dto) {
         Set<AnswerOptionDto> answerOptionDtos = new HashSet<>();
-        for (AnswerOptionDto answerOptionDto: dto.getPossibleAnswer()){
-            if(answerOptionService.getByValue(answerOptionDto.getValue()).isPresent()){
+        for (AnswerOptionDto answerOptionDto : dto.getPossibleAnswer()) {
+            if (answerOptionService.getByValue(answerOptionDto.getValue()).isPresent()) {
                 answerOptionDto = answerOptionService.getByValue(answerOptionDto.getValue()).get();
                 answerOptionDtos.add(answerOptionDto);
-            }else {
+            } else {
                 answerOptionDto = answerOptionService.save(answerOptionDto);
                 answerOptionDtos.add(answerOptionDto);
             }
         }
         dto.setPossibleAnswer(answerOptionDtos);
-        restTemplate.postForObject(backendQuestionUrl,questionConverter.toEntity(dto),QuestionEntity.class);
+        restTemplate.postForObject(backendQuestionUrl, questionConverter.toEntity(dto), QuestionEntity.class);
         return null;
     }
 
@@ -71,7 +71,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Set<QuestionDto> saveAll(Set<QuestionDto> questionDtos) {
         Set<QuestionDto> questionDtos1 = new HashSet<>();
-        for (QuestionDto questionDto:questionDtos){
+        for (QuestionDto questionDto : questionDtos) {
             questionDtos1.add(save(questionDto));
         }
         return questionDtos1;

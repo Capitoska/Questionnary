@@ -14,11 +14,11 @@ public class AnswerOptionConverter implements DefaultConverter<AnswerOptionDto, 
 
     @Override
     public AnswerOptionDto toDto(AnswerOptionEntity answerOptionEntity) {
-        return answerOptionEntity == null? null: mapper.map(answerOptionEntity, AnswerOptionDto.class);
+        return answerOptionEntity == null ? null : mapper.map(answerOptionEntity, AnswerOptionDto.class);
     }
 
     @Override
     public AnswerOptionEntity toEntity(AnswerOptionDto answerOptionDTO) {
-        return answerOptionDTO == null? null: mapper.map(answerOptionDTO, AnswerOptionEntity.class);
+        return answerOptionDTO == null ? null : mapper.map(answerOptionDTO, AnswerOptionEntity.class);
     }
 }

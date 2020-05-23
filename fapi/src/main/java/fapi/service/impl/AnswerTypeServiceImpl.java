@@ -26,23 +26,22 @@ public class AnswerTypeServiceImpl implements AnswerTypeService {
     AnswerTypeConverter AnswerTypeConverter;
 
 
-
     @Override
     public Iterable<AnswerTypeDto> findALL() {
-        AnswerTypeEntity[] answerTypeEntity = restTemplate.getForObject(backendAnswerTypeUrl,AnswerTypeEntity[].class);
-        return answerTypeEntity.length== 0? null:
+        AnswerTypeEntity[] answerTypeEntity = restTemplate.getForObject(backendAnswerTypeUrl, AnswerTypeEntity[].class);
+        return answerTypeEntity.length == 0 ? null :
                 AnswerTypeConverter.ToDtoList(Arrays.stream(answerTypeEntity).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<AnswerTypeDto> findById(Long id) {
-        AnswerTypeEntity answerTypeEntity = restTemplate.getForObject(backendAnswerTypeUrl + id,AnswerTypeEntity.class);
+        AnswerTypeEntity answerTypeEntity = restTemplate.getForObject(backendAnswerTypeUrl + id, AnswerTypeEntity.class);
         return Optional.ofNullable(AnswerTypeConverter.toDto(answerTypeEntity));
     }
 
     @Override
     public AnswerTypeDto save(AnswerTypeDto dto) {
-        restTemplate.postForObject(backendAnswerTypeUrl, AnswerTypeConverter.toEntity(dto),AnswerTypeEntity.class);
+        restTemplate.postForObject(backendAnswerTypeUrl, AnswerTypeConverter.toEntity(dto), AnswerTypeEntity.class);
         return null;
     }
 

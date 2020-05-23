@@ -14,11 +14,11 @@ public class QuizConverter implements DefaultConverter<fapi.dto.QuizDto, QuizEnt
 
     @Override
     public QuizDto toDto(QuizEntity quizEntity) {
-        return quizEntity == null? null: mapper.map(quizEntity, fapi.dto.QuizDto.class);
+        return quizEntity == null ? null : mapper.map(quizEntity, fapi.dto.QuizDto.class);
     }
 
     @Override
     public QuizEntity toEntity(fapi.dto.QuizDto quizDTO) {
-        return quizDTO == null? null:mapper.map(quizDTO, QuizEntity.class);
+        return quizDTO == null ? null : mapper.map(quizDTO, QuizEntity.class);
     }
 }

@@ -16,13 +16,14 @@ public class UserAnswerConverter implements DefaultConverter<UserAnswerDto, User
     public UserAnswerConverter(ModelMapper mapper) {
         this.mapper = mapper;
     }
+
     @Override
     public UserAnswerDto toDto(UserAnswerEntity userAnswerEntity) {
-        return userAnswerEntity == null? null: mapper.map(userAnswerEntity, UserAnswerDto.class);
+        return userAnswerEntity == null ? null : mapper.map(userAnswerEntity, UserAnswerDto.class);
     }
 
     @Override
     public UserAnswerEntity toEntity(UserAnswerDto userAnswerDTO) {
-        return userAnswerDTO == null? null:mapper.map(userAnswerDTO, UserAnswerEntity.class);
+        return userAnswerDTO == null ? null : mapper.map(userAnswerDTO, UserAnswerEntity.class);
     }
 }
