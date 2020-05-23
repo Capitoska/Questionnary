@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { QuizService } from 'src/app/services/quiz.service';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
-import { QuizCreateService } from 'src/app/services/quiz-create.service';
+import {Component, OnInit} from '@angular/core';
+import {QuizService} from 'src/app/services/quiz.service';
+import {FormGroup} from '@angular/forms';
+import {QuizCreateService} from 'src/app/services/quiz-create.service';
 
 @Component({
   selector: 'app-quiz-save',
@@ -26,9 +26,6 @@ export class QuizSaveComponent implements OnInit {
       (data) => console.log(data),
       (error) => console.log(error)
     );
-  }
-
-  saveQuiz() {
     console.log(this.quizForm.value);
   }
 }
