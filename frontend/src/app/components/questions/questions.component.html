@@ -3,7 +3,7 @@
         <div [formGroupName]="questionId">
             <div class="form-group">
                 <div class="input-group">
-                    <input id="text" type="text" class="form-control" placeholder="Input question text" formControlName="text" />
+                    <input id="text" type="text" class="form-control" placeholder="Input question text" formControlName="text" required/>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Answer type
@@ -43,8 +43,7 @@
           <input
             type="text"
             class="form-control"
-            [formControlName]="answerId"
-            [disabled]="getAnswerType(questionId) == 'text'"
+            [formControlName]="answerId" required
           />
           <button
             type="button"
@@ -57,7 +56,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button class="btn btn-dark col-3" (click)="addAnswer(questionId)">
+                    <button class="btn btn-dark col-3" (click)="addAnswer(questionId)" [disabled]="getAnswerType(questionId) == 'text'">
             Add answer
           </button>
                 </div>

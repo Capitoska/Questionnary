@@ -21,11 +21,20 @@ export class QuizSaveComponent implements OnInit {
 
   ngOnInit() {}
 
-  save() {
-    this.quizService.saveQuiz(this.quizForm.value).subscribe(
+  onSubmit() {
+    console.warn(this.quizForm.value);
+    this.quizService.saveQuiz(this.changeTypes(this.quizForm.value)).subscribe(
       (data) => console.log(data),
       (error) => console.log(error)
     );
-    console.log(this.quizForm.value);
+  }
+
+  changeTypes(quizForm) {
+    const quiz = Object.assign({}, quizForm);
+    quiz.questions.forEach(question => {
+      question.answerType = {value: question.answerType};
+    });
+    console.warn(quiz);
+    return quiz;
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -17,21 +17,21 @@ export class QuizCreateService {
 
   private createQuizForm(): FormGroup {
     return new FormGroup({
-      name: new FormControl(null),
+      name: new FormControl(null, Validators.required),
       questions: new FormArray([this.createNewQuestion()]),
     });
   }
 
   createNewQuestion(): FormGroup {
     return new FormGroup({
-      text: new FormControl(null),
+      text: new FormControl(null, Validators.required),
       answerType: new FormControl('radio'),
       answers: new FormArray([this.createAnswer()]),
     });
   }
 
   createAnswer(): FormControl {
-    return new FormControl(null);
+    return new FormControl(null, Validators.required);
   }
 
   selectTypeOfAnswer(
@@ -65,7 +65,7 @@ export class QuizCreateService {
   }
 
   addQuestion(): void {
-    this.questions.controls.push(this.createNewQuestion());
+    this.questions.push(this.createNewQuestion());
   }
 
   addAnswer(questionId: number): void {
