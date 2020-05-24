@@ -1,16 +1,16 @@
 package fapi.dto;
 
-
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class AnswerOptionDto {
-
+@AllArgsConstructor
+public class UserNarrowingDto {
     private Long id;
-    private String value;
-
+    private String username;
+    private RoleDto role;
 }

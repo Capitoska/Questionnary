@@ -26,6 +26,13 @@ public class QuizEntity {
     @JoinColumn(name = "quiz_id")
     private Set<QuestionEntity> questions;
 
-    @Column(name = "private")
-    private Boolean isOpen;
+    @Column(name = "is_completed")
+    private Boolean isCompleted;
+
+    @ManyToOne
+    @JoinColumn(name = "share_type_id")
+    private ShareTypeEntity shareTypeEntity;
+
+    @Column(name = "url")
+    private String urlAddress;
 }

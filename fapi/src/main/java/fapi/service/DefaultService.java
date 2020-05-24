@@ -2,7 +2,7 @@ package fapi.service;
 
 import java.util.Optional;
 
-public interface DefaultService<T>  {
+public interface DefaultService<T> {
     Iterable<T> findALL();
 
     Optional<T> findById(Long id);

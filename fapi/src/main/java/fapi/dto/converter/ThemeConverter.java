@@ -14,11 +14,11 @@ public class ThemeConverter implements DefaultConverter<ThemeDto, ThemeEntity> {
 
     @Override
     public ThemeDto toDto(ThemeEntity themeEntity) {
-        return themeEntity == null? null: mapper.map(themeEntity, ThemeDto.class);
+        return themeEntity == null ? null : mapper.map(themeEntity, ThemeDto.class);
     }
 
     @Override
     public ThemeEntity toEntity(ThemeDto themeDTO) {
-        return themeDTO == null? null:mapper.map(themeDTO, ThemeEntity.class);
+        return themeDTO == null ? null : mapper.map(themeDTO, ThemeEntity.class);
     }
 }

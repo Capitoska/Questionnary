@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {apiBaseUrl} from '../constants';
+import {IQuiz} from '../interfaces/IQuiz';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -22,7 +23,7 @@ export class QuizService {
     return this.http.delete(`${apiBaseUrl}/quizes/${id}`);
   }
 
-  saveQuiz(quiz) {
+  saveQuiz(quiz: IQuiz): Observable<any> {
     return this.http.post(`${apiBaseUrl}/quizes/`, quiz);
   }
 

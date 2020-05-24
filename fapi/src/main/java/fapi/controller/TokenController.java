@@ -2,7 +2,10 @@ package fapi.controller;
 
 import fapi.dto.JwtResponse;
 import fapi.dto.SignInDto;
+import fapi.dto.UserDto;
+import fapi.dto.UserNarrowingDto;
 import fapi.security.TokenProvider;
+import fapi.utils.AuthorizationBean;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +30,9 @@ public class TokenController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private AuthorizationBean authorizationBean;
+
+    @Autowired
     private TokenProvider tokenProvider;
 
     @Qualifier("defaultUserDetailsService")
@@ -35,11 +41,24 @@ public class TokenController {
 
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInDto signInDto) throws Exception{
-        authenticate(signInDto.getUsername(),signInDto.getPassword());
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody SignInDto signInDto) throws Exception {
+        authenticate(signInDto.getUsername(), signInDto.getPassword());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(signInDto.getUsername());
         final String token = tokenProvider.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @RequestMapping(value = "/authorized-user", method = RequestMethod.GET)
+    public  ResponseEntity<UserNarrowingDto> getAuthorizedDTO(){
+        UserDto userDto = authorizationBean.getAuthorizedUserDTO();
+        UserNarrowingDto userNarrowingDto = new UserNarrowingDto();
+        userNarrowingDto = userNarrowingDto.builder()
+                .id(userDto.getId())
+                .role(userDto.getRole())
+                .username(userDto.getUsername())
+                .build();
+        log.info(userNarrowingDto.toString());
+        return ResponseEntity.ok(userNarrowingDto);
     }
 
     private void authenticate(String username, String password) throws Exception {

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public final class JwtUserFactory {
-    public static JwtUser create(UserEntity userEntity){
+    public static JwtUser create(UserEntity userEntity) {
         return new JwtUser(userEntity.getId(),
                 userEntity.getUsername(),
                 userEntity.getPassword(),

@@ -68,12 +68,6 @@ public class QuizServiceImpl implements QuizService {
     }
 
 
-    //    todo заполнить и сделать (указывать url пользователя?) X получается
-    @Override
-    public Iterable<QuizDto> findAllByAuthor_Id(Long id) {
-        return null;
-    }
-
     @Override
     public boolean generateUrlAddress(QuizDto quizDto) {
         QuizEntity quizEntity = quizConverter.toEntity(quizDto);

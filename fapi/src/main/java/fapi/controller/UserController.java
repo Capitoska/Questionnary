@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @Log4j2
 //@RequestMapping("${fapi.fina.url}" + "${backend.user.url}")
-@RequestMapping("/api/fapi/users/")
+@RequestMapping("/api/fapi/users")
 public class UserController {
 
     @Autowired
@@ -30,7 +30,6 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @PreAuthorize("hasRole('admin')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Iterable<UserDto>> getAllUsers() {
         List<UserDto> userDtoList = (List<UserDto>) userService.findALL();
@@ -45,11 +44,11 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/quizes")
-    public Iterable<QuizDto> getQuizesAuthorizedUser(){
+    public Iterable<QuizDto> getQuizesAuthorizedUser() {
         return userService.findAllQuizesByAuthenticateUser();
     }
 
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);

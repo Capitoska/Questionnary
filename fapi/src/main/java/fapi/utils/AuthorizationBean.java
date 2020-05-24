@@ -19,7 +19,7 @@ public class AuthorizationBean {
         return auth.getName();
     }
 
-    public UserDto getAuthorizedUserDTO(){
+    public UserDto getAuthorizedUserDTO() {
         List<UserDto> userDtos = (List<UserDto>) userService.findALL();
         for (UserDto userDto : userDtos) {
             if (userDto.getUsername().equals(getCurrentUsername()))

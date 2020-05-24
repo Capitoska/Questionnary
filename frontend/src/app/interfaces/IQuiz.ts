@@ -7,4 +7,5 @@ export interface IQuiz {
   author: IUser;
   questions: Array<IQuestion>;
   isOpen: boolean;
+  urlAddress?: string;
 }

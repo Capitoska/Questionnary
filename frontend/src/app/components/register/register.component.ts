@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {IUser} from '../../interfaces/IUser';
 import {UserService} from '../../services/user.service';
-import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import { pipe } from 'rxjs';
+import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
+import {TokenStorageService} from "../../services/token-storage.service";
 
 @Component({
   selector: 'app-register',
@@ -24,7 +24,8 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private userService: UserService, private datePipe: DatePipe) {
+  constructor(private userService: UserService, private datePipe: DatePipe,
+              private router: Router, private tokenStorage: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -37,6 +38,13 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this.userService.login({
+          username: this.user.username,
+          password: this.user.password
+        }).subscribe( response => {
+          this.tokenStorage.saveToken(response.jwtResponse);
+          this.router.navigate(['']);
+        })
       },
       err => {
         this.errorMessage = err.error.message;

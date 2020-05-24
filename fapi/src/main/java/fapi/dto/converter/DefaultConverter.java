@@ -3,11 +3,12 @@ package fapi.dto.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface DefaultConverter<DTO,ENTITY> {
+public interface DefaultConverter<DTO, ENTITY> {
     DTO toDto(ENTITY entity);
+
     ENTITY toEntity(DTO dto);
 
-    default  List<DTO> ToDtoList(List<ENTITY> entities){
+    default List<DTO> ToDtoList(List<ENTITY> entities) {
         return entities.stream().map(this::toDto).collect(Collectors.toList());
     }
 

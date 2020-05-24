@@ -27,20 +27,20 @@ public class ThemeServiceImpl implements ThemeService {
 
     @Override
     public Iterable<ThemeDto> findALL() {
-        ThemeEntity[] themeEntities = restTemplate.getForObject(backendThemeUrl,ThemeEntity[].class);
-        return themeEntities.length== 0? null:
+        ThemeEntity[] themeEntities = restTemplate.getForObject(backendThemeUrl, ThemeEntity[].class);
+        return themeEntities.length == 0 ? null :
                 themeConverter.ToDtoList(Arrays.stream(themeEntities).collect(Collectors.toList()));
     }
 
     @Override
     public Optional<ThemeDto> findById(Long id) {
-        ThemeEntity themeEntity = restTemplate.getForObject(backendThemeUrl + id,ThemeEntity.class);
+        ThemeEntity themeEntity = restTemplate.getForObject(backendThemeUrl + id, ThemeEntity.class);
         return Optional.ofNullable(themeConverter.toDto(themeEntity));
     }
 
     @Override
     public ThemeDto save(ThemeDto dto) {
-        restTemplate.postForObject(backendThemeUrl,themeConverter.toEntity(dto),ThemeEntity.class);
+        restTemplate.postForObject(backendThemeUrl, themeConverter.toEntity(dto), ThemeEntity.class);
         return null;
     }
 

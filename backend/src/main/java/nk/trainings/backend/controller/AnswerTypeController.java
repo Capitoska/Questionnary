@@ -21,6 +21,12 @@ public class AnswerTypeController {
         return answerTypeEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @RequestMapping(value = "/value/{value}")
+    public  ResponseEntity<AnswerTypeEntity> getAnswerTypeByValue(@PathVariable(name = "value") String value){
+        Optional<AnswerTypeEntity> answerTypeEntity = answerTypeService.findByValue(value);
+        return answerTypeEntity.map(ResponseEntity::ok).orElseGet(()->ResponseEntity.notFound().build());
+    }
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<AnswerTypeEntity> getAllAnswerTypeAnswer() {
         return answerTypeService.findAll();

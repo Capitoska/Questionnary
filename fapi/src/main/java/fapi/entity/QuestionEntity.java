@@ -10,6 +10,5 @@ public class QuestionEntity {
     private Long id;
     private String text;
     private AnswerTypeEntity answerType;
-    private Set<AnswerOptionEntity> rightAnswer;
     private Set<AnswerOptionEntity> possibleAnswer;
 }
