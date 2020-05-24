@@ -5,6 +5,7 @@ import fapi.dto.QuestionDto;
 import fapi.dto.converter.QuestionConverter;
 import fapi.entity.QuestionEntity;
 import fapi.service.AnswerOptionService;
+import fapi.service.AnswerTypeService;
 import fapi.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     AnswerOptionService answerOptionService;
 
+    @Autowired
+    AnswerTypeService answerTypeService;
 
     @Override
     public Iterable<QuestionDto> findALL() {
@@ -48,6 +51,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionDto save(QuestionDto dto) {
+        dto.setAnswerType(answerTypeService.getAnswerTypeByValue(dto.getAnswerType().getValue()).get());
         Set<AnswerOptionDto> answerOptionDtos = new HashSet<>();
         for (AnswerOptionDto answerOptionDto : dto.getPossibleAnswer()) {
             if (answerOptionService.getByValue(answerOptionDto.getValue()).isPresent()) {

@@ -21,6 +21,7 @@ public class AnswerTypeConverter implements DefaultConverter<AnswerTypeDto, Answ
         return answerTypeEntity == null ? null : mapper.map(answerTypeEntity, AnswerTypeDto.class);
     }
 
+    //todo костыли. Сильные костыли!!!
     public AnswerTypeEntity toEntity(String value){
         AnswerTypeDto answerTypeDto = answerTypeService.getAnswerTypeByValue(value).get();
         return toEntity(answerTypeDto);
@@ -28,6 +29,9 @@ public class AnswerTypeConverter implements DefaultConverter<AnswerTypeDto, Answ
 
     @Override
     public AnswerTypeEntity toEntity(AnswerTypeDto answerTypeDTO) {
+        if (answerTypeDTO.getId() == null){
+           return toEntity(answerTypeDTO.getValue());
+        }
         return answerTypeDTO == null ? null : mapper.map(answerTypeDTO, AnswerTypeEntity.class);
     }
 }
