@@ -22,8 +22,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
 import {QuizComponent} from './components/quiz/quiz.component';
 import {authInterceptorProviders} from './constants';
-import { DatePipe } from '@angular/common';
-import { QuestionsComponent } from './components/questions/questions.component';
+import {DatePipe} from '@angular/common';
+import {QuestionsComponent} from './components/questions/questions.component';
+import {QuizListComponent} from './components/quiz-list/quiz-list.component';
+import {QuizReportComponent} from './components/quiz-report/quiz-report.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { QuestionsComponent } from './components/questions/questions.component';
     ErrorComponent,
     QuizSaveComponent,
     QuizComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    QuizListComponent,
+    QuizReportComponent
   ],
   imports: [
     HttpClientModule,

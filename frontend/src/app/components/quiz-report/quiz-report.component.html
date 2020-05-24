@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="card" *ngIf="quiz">
+    <h1 class="card-header">Report on {{this.quiz.name}}</h1>
+    <div class="card-body">
+      <h2 class="card-subtitle">Quiz was created by {{this.quiz.author.username}}</h2>
+      <label for="report">Write your complaint. Then the administrator will review it.</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Report message</span>
+        </div>
+        <textarea class="form-control" id="report" aria-label="With textarea" [(ngModel)]="reportMessage"></textarea>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a class="btn btn-primary" (click)="saveReport()">Save report</a>
+    </div>
+  </div>
+</div>

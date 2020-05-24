@@ -3,6 +3,8 @@ package fapi;
 import fapi.utils.AuthorizationBean;
 import fapi.utils.Base64Bean;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +27,10 @@ public class FapiApplication {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT)
+                .setFieldMatchingEnabled(true)
+                .setSkipNullEnabled(true)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
         return modelMapper;
     }
 

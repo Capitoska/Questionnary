@@ -49,4 +49,10 @@ public class AnswerTypeServiceImpl implements AnswerTypeService {
     public void deleteById(Long id) {
         restTemplate.delete(backendAnswerTypeUrl + id);
     }
+
+    @Override
+    public Optional<AnswerTypeDto> getAnswerTypeByValue(String value) {
+        AnswerTypeEntity answerTypeEntity =  restTemplate.getForObject(backendAnswerTypeUrl + "value/" + value, AnswerTypeEntity.class);
+        return Optional.ofNullable(AnswerTypeConverter.toDto(answerTypeEntity));
+    }
 }

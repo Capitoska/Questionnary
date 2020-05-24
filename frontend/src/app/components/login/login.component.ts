@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from 'src/app/services/user.service';
+import {TokenStorageService} from 'src/app/services/token-storage.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor(private userService: UserService, private tokenStorage: TokenStorageService) { }
+  constructor(private userService: UserService, private tokenStorage: TokenStorageService, private router: Router) { }
   user = {
     username: '',
     password: ''
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.reloadPage();
+      this.router.navigate(['']);
     }, error => {
       this.errorMessage = error.message;
       this.isLoginFailed = true;

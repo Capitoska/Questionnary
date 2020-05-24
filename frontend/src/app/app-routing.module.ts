@@ -7,6 +7,7 @@ import {RegisterComponent} from './components/register/register.component';
 import {HomeComponent} from './components/home/home.component';
 import {QuizComponent} from './components/quiz/quiz.component';
 import {QuizSaveComponent} from './components/quiz-save/quiz-save.component';
+import {QuizReportComponent} from "./components/quiz-report/quiz-report.component";
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'quizes/:id', component: QuizComponent },
+  {path: 'quizes/report/:id', component: QuizReportComponent},
   { path: 'new-quiz', component: QuizSaveComponent },
   { path: '**', component: ErrorComponent }
 ];

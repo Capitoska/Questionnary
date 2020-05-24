@@ -34,4 +34,9 @@ public class AnswerTypeServiceImpl implements AnswerTypeService {
     public void deleteById(Long id) {
         answerTypeRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<AnswerTypeEntity> findByValue(String value) {
+        return answerTypeRepository.findByValue(value);
+    }
 }
