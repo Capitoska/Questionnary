@@ -19,6 +19,10 @@ export class QuizService {
     return this.http.get(`${apiBaseUrl}/quizes/${id}`);
   }
 
+  getQuizByCreatorId(creatorId: number): Observable<any> {
+    return this.http.get(`${apiBaseUrl}/quzes/users/${creatorId}`);
+  }
+
   deleteQuiz(id: number): Observable<any> {
     return this.http.delete(`${apiBaseUrl}/quizes/${id}`);
   }

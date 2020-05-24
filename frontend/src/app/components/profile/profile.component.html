@@ -2,21 +2,24 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-header">
-                {{ user.username }}
+                <h1>{{ user.username }}</h1>
             </div>
             <div class="card-body">
                 <div class="card-text">
-                    Full name: {{user.secondName}} {{user.firstName}} {{user.thirdName}}
+                    Full name: {{ user.secondName }} {{ user.firstName }} {{ user.thirdName }}
                 </div>
-                <div class="card-text">
-                    Birthday: {{user.birthday}}
-                </div>
+                <div class="card-text">Birthday: {{ user.birthday }}</div>
             </div>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="card">
-
+            <div class="card-header">
+                <h1>Your quizes</h1>
+            </div>
+            <div class="card-body">
+                <app-quiz-list [quizList]="quizes" [user]="user" (onDataChange)="reloadQuizes()"></app-quiz-list>
+            </div>
         </div>
     </div>
 </div>
