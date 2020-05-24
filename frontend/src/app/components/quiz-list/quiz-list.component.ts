@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {QuizService} from "../../services/quiz.service";
-import {Router} from "@angular/router";
+import {QuizService} from '../../services/quiz.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-quiz-list',
@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 })
 export class QuizListComponent implements OnInit {
   @Input() quizList;
+  @Input() user;
   @Output() onDataChange = new EventEmitter<void>();
 
   constructor(private quizService: QuizService, private router: Router) {
@@ -25,7 +26,7 @@ export class QuizListComponent implements OnInit {
     this.quizService.deleteQuiz(id)
       .subscribe(data => {
         console.log(data);
-        this.reloadData()
+        this.reloadData();
       }, error => console.log(error));
   }
 
@@ -34,6 +35,10 @@ export class QuizListComponent implements OnInit {
   }
 
   reportQuiz(quizId: number): void {
-    this.router.navigate(['quizes', 'report', quizId])
+    this.router.navigate(['quizes', 'report', quizId]);
+  }
+
+  currentUserIsCreator(userId: number): boolean {
+    return userId === this.user.id;
   }
 }

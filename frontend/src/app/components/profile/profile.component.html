@@ -1,46 +1,24 @@
-<div class="d-flex" *ngIf="!isDataLoaded" style="height: 80%">
-    <div style="margin: auto auto;">
-        <div class="spinner-grow text-primary" style="width: 8rem; height: 8rem;" role="status">
-            <span class="sr-only">Loading...</span>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <h1>{{ user.username }}</h1>
+            </div>
+            <div class="card-body">
+                <div class="card-text">
+                    Full name: {{ user.secondName }} {{ user.firstName }} {{ user.thirdName }}
+                </div>
+                <div class="card-text">Birthday: {{ user.birthday }}</div>
+            </div>
         </div>
     </div>
-</div>
-<div class="page-content container" id="page-content" *ngIf="isDataLoaded">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-            <div class="col-xl-6 col-md-12">
-                <div class="card user-card-full">
-                    <div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4 bg-c-lite-green user-profile">
-                            <div class="card-block text-center text-white">
-                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png"
-                                        class="img-radius" alt="User-Profile-Image"> </div>
-                                <h6 class="f-w-600">{{user.firstName}} {{user.secondName}}</h6>
-                                <p>{{user.username}}</p> <i
-                                    class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="card-block">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">{{user.email}}</h6>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Birthday</p>
-                                        <h6 class="text-muted f-w-400">{{user.birthday}}</h6>
-                                    </div>
-                                </div>
-                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Quizes</h6>
-                                <div class="row">
-                                    <div *ngFor=""></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                <h1>Your quizes</h1>
+            </div>
+            <div class="card-body">
+                <app-quiz-list [quizList]="quizes" [user]="user" (onDataChange)="reloadQuizes()"></app-quiz-list>
             </div>
         </div>
     </div>

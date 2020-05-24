@@ -1,25 +1,33 @@
 <table class="table table-hover table-striped">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Name</th>
-    <th>Author</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let quiz of quizList | async; let i = index">
-    <td>{{i + 1}}</td>
-    <td>{{quiz.name}}</td>
-    <td>{{quiz.author.username}}</td>
-    <td>
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" (click)="quizDetails(quiz.id)">Open</button>
-        <button type="button" class="btn btn-secondary" (click)="deleteQuiz(quiz.id)" >Delete</button>
-        <button type="button" class="btn btn-secondary" (click)="reportQuiz(quiz.id)">Report</button>
-        <button type="button" class="btn btn-secondary" >Control</button>
-      </div>
-    </td>
-  </tr>
-  </tbody>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let quiz of quizList | async; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ quiz.name }}</td>
+            <td>{{ quiz.author.username }}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary" (click)="quizDetails(quiz.id)">
+            Open
+          </button>
+                    <button type="button" class="btn btn-secondary" (click)="deleteQuiz(quiz.id)" *ngIf="currentUserIsCreator(quiz.author.id)">
+            Delete
+          </button>
+                    <button type="button" class="btn btn-secondary" (click)="reportQuiz(quiz.id)">
+            Report
+          </button>
+                    <button type="button" class="btn btn-secondary" *ngIf="currentUserIsCreator(quiz.author.id)">
+            Control
+          </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
 </table>
