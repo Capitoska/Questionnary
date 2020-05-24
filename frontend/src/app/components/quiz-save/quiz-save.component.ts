@@ -22,7 +22,6 @@ export class QuizSaveComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    console.warn(this.quizForm.value);
     this.quizService.saveQuiz(this.changeTypes(this.quizForm.value)).subscribe(
       (data) => console.log(data),
       (error) => console.log(error)
@@ -32,6 +31,7 @@ export class QuizSaveComponent implements OnInit {
   changeTypes(quizForm) {
     const quiz = Object.assign({}, quizForm);
     quiz.questions.forEach(question => {
+      question.answerType = null;
       question.answerType = {value: question.answerType};
     });
     console.warn(quiz);
