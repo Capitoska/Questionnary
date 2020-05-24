@@ -23,9 +23,18 @@ export class QuizSaveComponent implements OnInit {
 
   onSubmit() {
     console.warn(this.quizForm.value);
-    this.quizService.saveQuiz(this.quizForm.value).subscribe(
+    this.quizService.saveQuiz(this.changeTypes(this.quizForm.value)).subscribe(
       (data) => console.log(data),
       (error) => console.log(error)
     );
+  }
+
+  changeTypes(quizForm) {
+    const quiz = Object.assign({}, quizForm);
+    quiz.questions.forEach(question => {
+      question.answerType = {value: question.answerType};
+    });
+    console.warn(quiz);
+    return quiz;
   }
 }
