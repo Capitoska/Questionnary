@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { QuizService } from 'src/app/services/quiz.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {QuizService} from 'src/app/services/quiz.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -26,10 +26,11 @@ export class QuizComponent implements OnInit {
     this.quizService.getQuizById(this.id).subscribe(
       (data) => {
         this.quiz = data;
+        this.addAnswerClickCheck();
+        console.log(data);
       },
       (error) => console.log(error)
     );
-    this.addAnswerClickCheck();
   }
 
   quizList(): void {
@@ -42,7 +43,7 @@ export class QuizComponent implements OnInit {
       if (question.answerType.value === 'text') {
         check = true;
       }
-      question.possibleAnswer.forEach( answer => {
+      question.answers.forEach( answer => {
         answer.isChecked = check;
       });
     });
@@ -55,7 +56,7 @@ export class QuizComponent implements OnInit {
   private getCheckedAnswers(): Array<any> {
     const checkedAnswers = [];
     this.questions.forEach( question => {
-      question.possibleAnswer.forEach( answer => {
+      question.answers.forEach( answer => {
         if (answer.isChecked) {
           const obj = {
             question,
@@ -75,7 +76,7 @@ export class QuizComponent implements OnInit {
 
   checkAnswer(questionId: number, answerId: number): void {
     const type = this.getAnswerType(questionId);
-    const notCheck = !this.questions[questionId].possibleAnswer[answerId].isChecked;
+    const notCheck = !this.questions[questionId].answers[answerId].isChecked;
     if (type === 'checkbox') {
       this.checkCheckboxAnswer(questionId, answerId, notCheck);
     }
@@ -85,13 +86,13 @@ export class QuizComponent implements OnInit {
   }
 
   private checkCheckboxAnswer(questionId: number, answerId: number, notCheck: boolean): void {
-    this.questions[questionId].possibleAnswer[answerId].isChecked = notCheck;
+    this.questions[questionId].answers[answerId].isChecked = notCheck;
   }
 
   private checkRadioAnswer(questionId: number, answerId: number): void {
-    this.questions[questionId].possibleAnswer.forEach( answer => {
+    this.questions[questionId].answers.forEach( answer => {
       answer.isChecked = false;
     });
-    this.questions[questionId].possibleAnswer[answerId].isChecked = true;
+    this.questions[questionId].answers[answerId].isChecked = true;
   }
 }

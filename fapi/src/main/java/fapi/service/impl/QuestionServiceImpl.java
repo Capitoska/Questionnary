@@ -1,6 +1,5 @@
 package fapi.service.impl;
 
-import fapi.dto.AnswerOptionDto;
 import fapi.dto.QuestionDto;
 import fapi.dto.converter.QuestionConverter;
 import fapi.entity.QuestionEntity;
@@ -40,7 +39,7 @@ public class QuestionServiceImpl implements QuestionService {
     public Iterable<QuestionDto> findALL() {
         QuestionEntity[] themeEntities = restTemplate.getForObject(backendQuestionUrl, QuestionEntity[].class);
         return themeEntities.length == 0 ? null :
-                questionConverter.ToDtoList(Arrays.stream(themeEntities).collect(Collectors.toList()));
+                questionConverter.toDtoList(Arrays.stream(themeEntities).collect(Collectors.toList()));
     }
 
     @Override
@@ -52,17 +51,17 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionDto save(QuestionDto dto) {
         dto.setAnswerType(answerTypeService.getAnswerTypeByValue(dto.getAnswerType().getValue()).get());
-        Set<AnswerOptionDto> answerOptionDtos = new HashSet<>();
-        for (AnswerOptionDto answerOptionDto : dto.getPossibleAnswer()) {
-            if (answerOptionService.getByValue(answerOptionDto.getValue()).isPresent()) {
-                answerOptionDto = answerOptionService.getByValue(answerOptionDto.getValue()).get();
-                answerOptionDtos.add(answerOptionDto);
-            } else {
-                answerOptionDto = answerOptionService.save(answerOptionDto);
-                answerOptionDtos.add(answerOptionDto);
-            }
-        }
-        dto.setPossibleAnswer(answerOptionDtos);
+//        Set<AnswerOptionDto> answerOptionDtos = new HashSet<>();
+//        for (AnswerOptionDto answerOptionDto : dto.getPossibleAnswer()) {
+//            if (answerOptionService.getByValue(answerOptionDto.getValue()).isPresent()) {
+//                answerOptionDto = answerOptionService.getByValue(answerOptionDto.getValue()).get();
+//                answerOptionDtos.add(answerOptionDto);
+//            } else {
+//                answerOptionDto = answerOptionService.save(answerOptionDto);
+//                answerOptionDtos.add(answerOptionDto);
+//            }
+//        }
+//        dto.setPossibleAnswer(answerOptionDtos);
         restTemplate.postForObject(backendQuestionUrl, questionConverter.toEntity(dto), QuestionEntity.class);
         return null;
     }

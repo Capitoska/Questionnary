@@ -1,3 +1,5 @@
+import {IRole} from "./IRole";
+
 export interface IUser {
   id?: number;
   username: string;
@@ -7,5 +9,5 @@ export interface IUser {
   thirdName?: string;
   email?: string;
   birthday?: string;
-  role?: string;
+  role?: IRole;
 }

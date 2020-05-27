@@ -44,6 +44,7 @@ export class RegisterComponent implements OnInit {
         }).subscribe( response => {
           this.tokenStorage.saveToken(response.jwtResponse);
           this.router.navigate(['']);
+          window.location.reload();
         })
       },
       err => {

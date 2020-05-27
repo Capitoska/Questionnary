@@ -7,5 +7,5 @@ public class UserAnswerDto {
     private Long id;
     private UserDto user;
     private AnswerOptionDto answer;
-
+    private QuestionDto question;
 }

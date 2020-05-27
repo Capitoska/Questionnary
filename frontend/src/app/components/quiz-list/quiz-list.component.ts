@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {QuizService} from '../../services/quiz.service';
 import {Router} from '@angular/router';
+import {UserService} from "../../services/user.service";
+import {IUser} from "../../interfaces/IUser";
 
 @Component({
   selector: 'app-quiz-list',
@@ -9,10 +11,10 @@ import {Router} from '@angular/router';
 })
 export class QuizListComponent implements OnInit {
   @Input() quizList;
-  @Input() user;
+  @Input() user: IUser;
   @Output() onDataChange = new EventEmitter<void>();
 
-  constructor(private quizService: QuizService, private router: Router) {
+  constructor(private quizService: QuizService, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {

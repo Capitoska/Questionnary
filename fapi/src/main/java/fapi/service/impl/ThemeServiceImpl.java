@@ -29,7 +29,7 @@ public class ThemeServiceImpl implements ThemeService {
     public Iterable<ThemeDto> findALL() {
         ThemeEntity[] themeEntities = restTemplate.getForObject(backendThemeUrl, ThemeEntity[].class);
         return themeEntities.length == 0 ? null :
-                themeConverter.ToDtoList(Arrays.stream(themeEntities).collect(Collectors.toList()));
+                themeConverter.toDtoList(Arrays.stream(themeEntities).collect(Collectors.toList()));
     }
 
     @Override

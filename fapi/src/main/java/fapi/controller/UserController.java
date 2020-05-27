@@ -2,6 +2,7 @@ package fapi.controller;
 
 import fapi.dto.QuizDto;
 import fapi.dto.UserDto;
+import fapi.service.RoleService;
 import fapi.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -36,9 +40,11 @@ public class UserController {
         return ResponseEntity.ok(userDtoList);
     }
 
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<UserDto> save(@RequestBody UserDto dto) {
         dto.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        dto.setRole(roleService.findById(3L).get());
         dto = userService.save(dto);
         return ResponseEntity.ok(dto);
     }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IUser} from '../interfaces/IUser';
 import {apiBaseUrl, httpOptions} from '../constants';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class UserService {
     return this.http.post(`${apiBaseUrl}/users`, user, httpOptions);
   }
 
-  login(user: IUser): Observable<any> {
+  login(user): Observable<any> {
     return this.http.post(`${apiBaseUrl}/token/authenticate`, user, httpOptions);
   }
 

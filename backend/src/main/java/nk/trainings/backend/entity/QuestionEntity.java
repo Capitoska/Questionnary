@@ -21,7 +21,10 @@ public class QuestionEntity {
     @JoinColumn(name = "type_id")
     private AnswerTypeEntity answerType;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinTable(
             name = "questions_answer_options",
             joinColumns = @JoinColumn(name = "question_id"),

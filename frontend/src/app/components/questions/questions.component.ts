@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { FormArray, FormGroup, FormControl } from '@angular/forms';
-import { QuizCreateService } from 'src/app/services/quiz-create.service';
+import {Component, OnInit} from '@angular/core';
+import {FormArray, FormGroup} from '@angular/forms';
+import {QuizCreateService} from 'src/app/services/quiz-create.service';
 
 @Component({
   selector: 'app-questions',
@@ -13,7 +13,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   get questions() {
-    return this.quizCreate.questions;
+    return this.quizCreate.questions ? this.quizCreate.questions : null;
   }
 
   constructor(private quizCreate: QuizCreateService) { }

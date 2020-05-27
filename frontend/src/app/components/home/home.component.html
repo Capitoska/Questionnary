@@ -1,8 +1,8 @@
-<div class="container col-4">
+<div class="container col-6">
     <div class="card">
         <h2 class="card-header">Quizes List</h2>
         <div class="card-body">
-            <app-quiz-list [quizList]="quizList" [user]="" (onDataChange)="reloadData()"></app-quiz-list>
+            <app-quiz-list [quizList]="quizList" [user]="user" (onDataChange)="reloadData()"></app-quiz-list>
         </div>
     </div>
 </div>

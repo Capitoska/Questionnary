@@ -1,4 +1,4 @@
-<div class="container col-7">
+<div class="container col-7" *ngIf="quiz">
     <div class="card">
         <h2 class="card-header">{{ quiz.name }}</h2>
         <div class="card-body">
@@ -19,7 +19,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" *ngFor="let question of quiz.questions; let questionId = index">
                     <h4>{{question.text}}</h4>
-                    <div *ngFor="let answer of question.possibleAnswer; let answerId = index">
+                    <div *ngFor="let answer of question.answers; let answerId = index">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <div class="input-group-text">

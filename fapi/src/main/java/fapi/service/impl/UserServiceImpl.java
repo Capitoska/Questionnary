@@ -7,6 +7,7 @@ import fapi.dto.converter.UserConverter;
 import fapi.entity.QuizEntity;
 import fapi.entity.UserEntity;
 import fapi.security.JwtUserFactory;
+import fapi.service.RoleService;
 import fapi.service.UserService;
 import fapi.utils.AuthorizationBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private RestTemplate restTemplate;
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private QuizConverter quizConverter;
 
     @Autowired
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Iterable<UserDto> findALL() {
         UserEntity[] userEntity = restTemplate.getForObject(backendUserUrl, UserEntity[].class);
-        return userEntity == null ? null : userConverter.ToDtoList(Arrays.stream(userEntity).collect(Collectors.toList()));
+        return userEntity == null ? null : userConverter.toDtoList(Arrays.stream(userEntity).collect(Collectors.toList()));
     }
 
     @Override
@@ -55,8 +59,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDto save(UserDto dto) {
+        dto.setRole(roleService.findById(3L).get());
         RestTemplate restTemplate = new RestTemplate();
         UserEntity userEntity = userConverter.toEntity(dto);
+
         restTemplate.postForObject(backendUserUrl, userEntity, UserEntity.class);
         return userConverter.toDto(userEntity);
     }
@@ -98,7 +104,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserEntity userEntity = userConverter.toEntity(authorizationBean.getAuthorizedUserDTO());
         QuizEntity[] quizEntities = restTemplate.getForObject(backendUserUrl + userEntity.getId() + "/quizes/", QuizEntity[].class);
 
-        return quizConverter.ToDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
+        return quizConverter.toDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
     }
 
 //    @Override

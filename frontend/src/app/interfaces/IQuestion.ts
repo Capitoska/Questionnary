@@ -6,5 +6,5 @@ export interface IQuestion {
   text: string;
   answerType: IAnswerType;
   rightAnswer: Array<IAnswerOption>;
-  possibleAnswer: Array<IAnswerOption>;
+  answers: Array<IAnswerOption>;
 }

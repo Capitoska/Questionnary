@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from 'src/app/services/user.service';
 import {TokenStorageService} from 'src/app/services/token-storage.service';
 import {Router} from "@angular/router";
@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @Output() loginEmitter = new EventEmitter();
   constructor(private userService: UserService, private tokenStorage: TokenStorageService, private router: Router) { }
   user = {
     username: '',
@@ -31,12 +32,17 @@ export class LoginComponent implements OnInit {
       this.tokenStorage.saveUser(data);
       this.isLoginFailed = false;
       this.isLoggedIn = true;
-      this.reloadPage();
+      this.setUserAuthorized(this.tokenStorage.getToken());
       this.router.navigate(['']);
+      this.reloadPage();
     }, error => {
       this.errorMessage = error.message;
       this.isLoginFailed = true;
     });
+  }
+
+  setUserAuthorized(token) {
+    this.loginEmitter.emit(token);
   }
 
   reloadPage(): void {

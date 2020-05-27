@@ -22,7 +22,7 @@ public class QuizEntity {
     @JoinColumn(name = "author_id")
     private UserEntity author;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "quiz_id")
     private Set<QuestionEntity> questions;
 

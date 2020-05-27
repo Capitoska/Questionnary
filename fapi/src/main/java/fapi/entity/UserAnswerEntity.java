@@ -7,5 +7,5 @@ public class UserAnswerEntity {
     private Long id;
     private UserEntity user;
     private AnswerOptionEntity answer;
-
+    private QuestionEntity question;
 }

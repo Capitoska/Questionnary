@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,6 +29,11 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     @Override
     public UserAnswerEntity save(@RequestBody UserAnswerEntity userAnswerEntity) {
         return userAnswerRepository.save(userAnswerEntity);
+    }
+
+    @Override
+    public List<UserAnswerEntity> saveAll(@RequestBody List<UserAnswerEntity> userAnswerEntities){
+        return (List<UserAnswerEntity>) userAnswerRepository.saveAll(userAnswerEntities);
     }
 
     @Override

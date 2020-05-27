@@ -39,7 +39,7 @@ public class QuizServiceImpl implements QuizService {
     public Iterable<QuizDto> findALL() {
         QuizEntity[] quizEntities = restTemplate.getForObject(backendQuizUrl, QuizEntity[].class);
         return quizEntities.length == 0 ? null :
-                quizConverter.ToDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
+                quizConverter.toDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public QuizDto save(QuizDto dto) {
-        dto.setQuestions(questionService.saveAll(dto.getQuestions()));
+//        dto.setQuestions(questionService.saveAll(dto.getQuestions()));
         restTemplate.postForObject(backendQuizUrl, quizConverter.toEntity(dto), QuizEntity.class);
         return null;
     }
@@ -64,7 +64,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public Iterable<QuizDto> findByName(String name) {
         QuizEntity[] quizEntities = restTemplate.getForObject(backendQuizUrl + "name/" + name, QuizEntity[].class);
-        return quizConverter.ToDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
+        return quizConverter.toDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
     }
 
 
@@ -81,8 +81,6 @@ public class QuizServiceImpl implements QuizService {
             return false;
         }
         quizEntity.setUrlAddress(newUrlAddress);
-//        restTemplate.put(backendQuizUrl+ quizDto.getId() +
-//                "/generate-url", quizEntity, QuizEntity.class);
         restTemplate.put(backendQuizUrl, quizEntity, QuizEntity.class);
         return true;
     }

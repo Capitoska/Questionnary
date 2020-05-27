@@ -31,8 +31,9 @@ export class QuizSaveComponent implements OnInit {
   changeTypes(quizForm) {
     const quiz = Object.assign({}, quizForm);
     quiz.questions.forEach(question => {
+      const type = question.answerType;
       question.answerType = null;
-      question.answerType = {value: question.answerType};
+      question.answerType = {value: type};
     });
     console.warn(quiz);
     return quiz;

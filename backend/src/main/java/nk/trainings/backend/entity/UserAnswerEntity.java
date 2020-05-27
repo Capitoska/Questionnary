@@ -13,7 +13,7 @@ public class UserAnswerEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
@@ -21,4 +21,7 @@ public class UserAnswerEntity {
     @JoinColumn(name = "answer_id")
     private AnswerOptionEntity answer;
 
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private QuestionEntity question;
 }

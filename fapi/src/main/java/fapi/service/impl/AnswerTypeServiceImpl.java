@@ -30,7 +30,7 @@ public class AnswerTypeServiceImpl implements AnswerTypeService {
     public Iterable<AnswerTypeDto> findALL() {
         AnswerTypeEntity[] answerTypeEntity = restTemplate.getForObject(backendAnswerTypeUrl, AnswerTypeEntity[].class);
         return answerTypeEntity.length == 0 ? null :
-                AnswerTypeConverter.ToDtoList(Arrays.stream(answerTypeEntity).collect(Collectors.toList()));
+                AnswerTypeConverter.toDtoList(Arrays.stream(answerTypeEntity).collect(Collectors.toList()));
     }
 
     @Override

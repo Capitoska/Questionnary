@@ -20,7 +20,7 @@ export class QuizService {
   }
 
   getQuizByCreatorId(creatorId: number): Observable<any> {
-    return this.http.get(`${apiBaseUrl}/quzes/users/${creatorId}`);
+    return this.http.get(`${apiBaseUrl}/users/quizes`);
   }
 
   deleteQuiz(id: number): Observable<any> {
@@ -33,5 +33,9 @@ export class QuizService {
 
   saveAnswers(answers: Array<any>): Observable<any> {
     return this.http.post(`${apiBaseUrl}/user-answers/`, answers);
+  }
+
+  sendReport(report: object): Observable<any> {
+    return this.http.post(`${apiBaseUrl}/quizes/reports/`, report);
   }
 }

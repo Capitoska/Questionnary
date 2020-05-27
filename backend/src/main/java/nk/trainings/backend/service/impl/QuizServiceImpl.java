@@ -1,12 +1,18 @@
 package nk.trainings.backend.service.impl;
 
+import nk.trainings.backend.entity.AnswerTypeEntity;
+import nk.trainings.backend.entity.QuestionEntity;
 import nk.trainings.backend.entity.QuizEntity;
 import nk.trainings.backend.repository.QuizRepository;
+import nk.trainings.backend.service.AnswerTypeService;
 import nk.trainings.backend.service.QuizService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
 @Service
@@ -43,8 +49,19 @@ public class QuizServiceImpl implements QuizService {
 //        return quizRepository.save(quizEntity);
 //    }
 
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Autowired
+    AnswerTypeService answerTypeService;
+
     @Override
     public QuizEntity save(@RequestBody QuizEntity quizEntity) {
+        Session session = entityManager.unwrap(Session.class);
+        for (QuestionEntity questionEntity: quizEntity.getQuestions()){
+            AnswerTypeEntity answerTypeEntity = answerTypeService.findByValue(questionEntity.getAnswerType().getValue()).get();
+            questionEntity.setAnswerType(answerTypeEntity);
+        }
         return quizRepository.save(quizEntity);
     }
 

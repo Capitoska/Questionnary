@@ -6,5 +6,13 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'Questionnary';
+  token: string;
+
+  onChange(event) {
+    console.log(event);
+    // event.loginEmitter.subscribe(data => {
+    //   this.token = data;
+    // })
+  }
 }

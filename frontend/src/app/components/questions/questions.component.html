@@ -1,43 +1,47 @@
-<div [formGroup]="quizForm">
-    <div class="list-group-item" formArrayName="questions" *ngFor="let question of this.questions.controls; let questionId = index">
-        <div [formGroupName]="questionId">
-            <div class="form-group">
-                <div class="input-group">
-                    <input id="text" type="text" class="form-control" placeholder="Input question text" formControlName="text" required/>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<div [formGroup]="quizForm" *ngIf="questions">
+  <div class="list-group-item" formArrayName="questions"
+       *ngFor="let question of this.questions.controls; let questionId = index">
+    <div [formGroupName]="questionId">
+      <div class="form-group">
+        <div class="input-group">
+          <input id="text" type="text" class="form-control" placeholder="Input question text" formControlName="text"
+                 required/>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
               Answer type
             </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'radio')">One of the list</a
+            <div class="dropdown-menu">
+              <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'radio')">One of the list</a
               >
               <a
                 class="dropdown-item"
                 (click)="selectTypeOfAnswer(questionId, 'checkbox')"
-                >Several of list
+              >Several of list
               </a>
-                            <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'text')">Text
+              <a class="dropdown-item" (click)="selectTypeOfAnswer(questionId, 'text')">Text
               </a>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-outline-danger" (click)="removeQuestion(questionId)">
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-danger" (click)="removeQuestion(questionId)">
             X
           </button>
-                </div>
-            </div>
-            <div class="form-group" formArrayName="answers" *ngFor="
+        </div>
+      </div>
+      <div class="form-group" formArrayName="answers" *ngFor="
           let answer of getAnswers(questionId).controls;
           let answerId = index
         ">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm" *ngIf="getAnswerType(questionId) === 'text'">Text</span
-            >
+        <div class="input-group">
+          <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm"
+                              *ngIf="getAnswerType(questionId) === 'text'">Text</span
+                        >
             <div
               class="input-group-text"
               *ngIf="getAnswerType(questionId) !== 'text'"
             >
-              <input type="{{ getAnswerType(questionId) }}" disabled />
+              <input type="{{ getAnswerType(questionId) }}" disabled/>
             </div>
           </div>
           <input
@@ -52,19 +56,23 @@
             (click)="removeAnswer(questionId, answerId)"
           >
             <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-dark col-3" (click)="addAnswer(questionId)" [disabled]="getAnswerType(questionId) == 'text'">
-            Add answer
           </button>
-                </div>
-            </div>
         </div>
-        <div class="list-group-item text-center">
-            <button class="btn btn-info col-3" (click)="addQuestion()">
+      </div>
+      <div class="text-center">
+        <button class="btn btn-dark col-3" (click)="addAnswer(questionId)"
+                [disabled]="getAnswerType(questionId) == 'text'">
+          Add answer
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="list-group-item text-center">
+    <button class="btn btn-info col-3" (click)="addQuestion()">
       Add question
     </button>
-        </div>
-    </div>
+  </div>
+</div>
+<div class="card-text" *ngIf="!questions">
+  <h1>Sorry, question are not found...</h1>
+</div>

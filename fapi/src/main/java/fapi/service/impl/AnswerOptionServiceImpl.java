@@ -29,7 +29,7 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     public Iterable<AnswerOptionDto> findALL() {
         AnswerOptionEntity[] AnswerOptionEntities = restTemplate.getForObject(backendAnswerOptionUrl, AnswerOptionEntity[].class);
         return AnswerOptionEntities.length == 0 ? null :
-                answerOptionConverter.ToDtoList(Arrays.stream(AnswerOptionEntities).collect(Collectors.toList()));
+                answerOptionConverter.toDtoList(Arrays.stream(AnswerOptionEntities).collect(Collectors.toList()));
     }
 
     @Override

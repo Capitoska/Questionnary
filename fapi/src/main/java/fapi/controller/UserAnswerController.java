@@ -30,8 +30,8 @@ public class UserAnswerController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<UserAnswerDto> save(@RequestBody UserAnswerDto dto) {
-        dto = userAnswerService.save(dto);
+    public ResponseEntity<List<UserAnswerDto>> saveAll(@RequestBody List<UserAnswerDto> dto) {
+        dto = userAnswerService.saveAll(dto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
