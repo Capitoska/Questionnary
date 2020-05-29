@@ -31,11 +31,15 @@ export class QuizService {
     return this.http.post(`${apiBaseUrl}/quizes/`, quiz);
   }
 
-  saveAnswers(answers: Array<any>): Observable<any> {
+  saveAnswers(answers: any): Observable<any> {
     return this.http.post(`${apiBaseUrl}/user-answers/`, answers);
   }
 
   sendReport(report: object): Observable<any> {
-    return this.http.post(`${apiBaseUrl}/quizes/reports/`, report);
+    return this.http.post(`${apiBaseUrl}/reports/`, report);
+  }
+
+  getReportsByQuizId(quizId: number): Observable<any> {
+    return this.http.get(`${apiBaseUrl}/reports/quizes/${quizId}`);
   }
 }

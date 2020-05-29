@@ -80,7 +80,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-    //    todo заполнить загрузку юзера по его юзернэйму
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto userDto = findByUsername(username);
@@ -106,14 +105,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return quizConverter.toDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
     }
-
-//    @Override
-//    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-//        UserDto user = findByLogin(userName);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("Invalid username or password.");
-//        }
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
-//    }
-
 }

@@ -3,7 +3,7 @@ import {IUser} from '../../interfaces/IUser';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import {TokenStorageService} from "../../services/token-storage.service";
+import {TokenStorageService} from '../../services/token-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +29,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isSuccessful = true;
+    }
   }
 
   onSubmit() {
@@ -43,9 +46,8 @@ export class RegisterComponent implements OnInit {
           password: this.user.password
         }).subscribe( response => {
           this.tokenStorage.saveToken(response.jwtResponse);
-          this.router.navigate(['']);
           window.location.reload();
-        })
+        });
       },
       err => {
         this.errorMessage = err.error.message;
@@ -55,5 +57,9 @@ export class RegisterComponent implements OnInit {
 
   convertDate(date: string | Date): string {
     return this.datePipe.transform(date, 'dd-MM-yyyy');
+  }
+
+  quizList(): void {
+    this.router.navigate(['']);
   }
 }

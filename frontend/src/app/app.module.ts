@@ -26,6 +26,9 @@ import {DatePipe} from '@angular/common';
 import {QuestionsComponent} from './components/questions/questions.component';
 import {QuizListComponent} from './components/quiz-list/quiz-list.component';
 import {QuizReportComponent} from './components/quiz-report/quiz-report.component';
+import {ModalComponent} from './components/modal/modal.component';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {ReportsListComponent} from './components/reports-list/reports-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import {QuizReportComponent} from './components/quiz-report/quiz-report.componen
     QuizComponent,
     QuestionsComponent,
     QuizListComponent,
-    QuizReportComponent
+    QuizReportComponent,
+    ModalComponent,
+    ReportsListComponent
   ],
   imports: [
     HttpClientModule,
@@ -55,11 +60,13 @@ import {QuizReportComponent} from './components/quiz-report/quiz-report.componen
     MatProgressSpinnerModule,
     MatCardModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MDBBootstrapModule.forRoot()
   ],
+  entryComponents: [ ModalComponent ],
   providers: [
     authInterceptorProviders,
-    DatePipe
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

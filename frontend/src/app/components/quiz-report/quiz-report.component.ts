@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {QuizService} from "../../services/quiz.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MDBModalRef, MDBModalService} from 'angular-bootstrap-md';
+import {ModalComponent} from '../modal/modal.component';
 
 @Component({
   selector: 'app-quiz-report',
@@ -11,7 +13,11 @@ export class QuizReportComponent implements OnInit {
   quiz: any;
   reportMessage: string;
   quizId: number;
-  constructor(private quizService: QuizService, public route: ActivatedRoute) { }
+  modalRef: MDBModalRef;
+  constructor(private quizService: QuizService, private router: Router,
+     public route: ActivatedRoute, private modalService: MDBModalService) {
+    modalService.close.subscribe( r => router.navigate(['']));
+   }
 
   ngOnInit(): void {
     this.quizId = this.route.snapshot.params.id;
@@ -22,7 +28,9 @@ export class QuizReportComponent implements OnInit {
   }
 
   saveReport(): void {
-    this.quizService.sendReport({reportMessage: this.reportMessage, quiz: this.quiz});
+    this.quizService.sendReport({text: this.reportMessage, quiz: this.quiz}).subscribe( data => {
+      console.log(data);
+      this.modalRef = this.modalService.show(ModalComponent);
+    }, error => console.log(error));
   }
-
 }

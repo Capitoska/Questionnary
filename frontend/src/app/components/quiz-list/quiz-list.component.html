@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let quiz of quizList | async; let i = index">
+        <tr *ngFor="let quiz of quizList; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ quiz.name }}</td>
             <td>{{ quiz.author.username }}</td>
@@ -23,8 +23,8 @@
                     <button type="button" class="btn btn-secondary" (click)="reportQuiz(quiz.id)">
             Report
           </button>
-                    <button type="button" class="btn btn-secondary" *ngIf="currentUserIsCreator(quiz.author.id)">
-            Control
+                    <button type="button" class="btn btn-secondary" *ngIf="currentUserIsCreator(quiz.author.id)" (click)="getReports(quiz.id)">
+            Show reports
           </button>
                 </div>
             </td>

@@ -31,14 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-//    todo HardCode. Think about solution.
     @Override
     @Transactional
     public UserEntity save(UserEntity userEntity) {
-       /* if (userEntity.getRole() == null) {
-            LOGGER.info("GAAAAAAAAAAAAAA");
-            userEntity.setRole(roleRepository.findById(1L));
-        }*/
         return userRepository.save(userEntity);
     }
 

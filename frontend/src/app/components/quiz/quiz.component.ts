@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {QuizService} from 'src/app/services/quiz.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MDBModalRef, MDBModalService} from 'angular-bootstrap-md';
+import {ModalComponent} from '../modal/modal.component';
 
 @Component({
   selector: 'app-quiz',
@@ -10,6 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class QuizComponent implements OnInit {
   quiz: any;
   id: number;
+  modalRef: MDBModalRef;
 
   get questions() {
     return this.quiz.questions;
@@ -18,8 +21,11 @@ export class QuizComponent implements OnInit {
   constructor(
     private quizService: QuizService,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private modalService: MDBModalService
+  ) {
+    this.modalService.close.subscribe(() => this.quizList());
+   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params.id;
@@ -27,7 +33,6 @@ export class QuizComponent implements OnInit {
       (data) => {
         this.quiz = data;
         this.addAnswerClickCheck();
-        console.log(data);
       },
       (error) => console.log(error)
     );
@@ -38,12 +43,12 @@ export class QuizComponent implements OnInit {
   }
 
   private addAnswerClickCheck(): void {
-    this.questions.forEach( question => {
+    this.questions.forEach(question => {
       let check = false;
       if (question.answerType.value === 'text') {
         check = true;
       }
-      question.answers.forEach( answer => {
+      question.answers.forEach(answer => {
         answer.isChecked = check;
       });
     });
@@ -55,8 +60,8 @@ export class QuizComponent implements OnInit {
 
   private getCheckedAnswers(): Array<any> {
     const checkedAnswers = [];
-    this.questions.forEach( question => {
-      question.answers.forEach( answer => {
+    this.questions.forEach(question => {
+      question.answers.forEach(answer => {
         if (answer.isChecked) {
           const obj = {
             question,
@@ -66,12 +71,17 @@ export class QuizComponent implements OnInit {
         }
       });
     });
-    console.log(checkedAnswers);
+    console.log('Answers', checkedAnswers);
     return checkedAnswers;
   }
 
   saveAnswers(): void {
-    this.quizService.saveAnswers(this.getCheckedAnswers());
+    this.quizService.saveAnswers(this.getCheckedAnswers()).subscribe(res => {
+      console.log('Response', res);
+      this.openModal();
+    }, err => {
+      console.log('Error', err);
+    });
   }
 
   checkAnswer(questionId: number, answerId: number): void {
@@ -90,9 +100,14 @@ export class QuizComponent implements OnInit {
   }
 
   private checkRadioAnswer(questionId: number, answerId: number): void {
-    this.questions[questionId].answers.forEach( answer => {
+    this.questions[questionId].answers.forEach(answer => {
       answer.isChecked = false;
     });
     this.questions[questionId].answers[answerId].isChecked = true;
+  }
+
+  openModal(): void {
+    this.modalRef = this.modalService.show(ModalComponent);
+
   }
 }

@@ -27,7 +27,6 @@ public class    UserAnswerController {
         return userAnswerService.findAll();
     }
 
-//    todo неккоректная работа сохранения Entity. Продумать.
     @RequestMapping(value = "", method =RequestMethod.POST)
     public List<UserAnswerEntity> save(@RequestBody List<UserAnswerEntity> userAnswerEntities) {
         return userAnswerService.saveAll(userAnswerEntities);

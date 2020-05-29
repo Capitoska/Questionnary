@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Optional;
 
+//todo сохранение ответа ТЕКСТ продумать. 
+
 @Service
 public class UserAnswerServiceImpl implements UserAnswerService {
 
@@ -31,8 +33,12 @@ public class UserAnswerServiceImpl implements UserAnswerService {
         return userAnswerRepository.save(userAnswerEntity);
     }
 
+    //TODO ГОВНОООООООО
     @Override
     public List<UserAnswerEntity> saveAll(@RequestBody List<UserAnswerEntity> userAnswerEntities){
+        for(UserAnswerEntity userAnswerEntity:userAnswerEntities){
+            if(userAnswerEntity.getQuestion().getAnswerType().getValue().equals("")){}
+        }
         return (List<UserAnswerEntity>) userAnswerRepository.saveAll(userAnswerEntities);
     }
 

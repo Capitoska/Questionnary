@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {QuizService} from '../../services/quiz.service';
 import {Router} from '@angular/router';
-import {UserService} from "../../services/user.service";
-import {IUser} from "../../interfaces/IUser";
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-quiz-list',
@@ -11,7 +10,7 @@ import {IUser} from "../../interfaces/IUser";
 })
 export class QuizListComponent implements OnInit {
   @Input() quizList;
-  @Input() user: IUser;
+  @Input() user;
   @Output() onDataChange = new EventEmitter<void>();
 
   constructor(private quizService: QuizService, private router: Router, private userService: UserService) {
@@ -42,5 +41,9 @@ export class QuizListComponent implements OnInit {
 
   currentUserIsCreator(userId: number): boolean {
     return userId === this.user.id;
+  }
+
+  getReports(quizId: number): void {
+    this.router.navigate(['quiz-reports', quizId]);
   }
 }

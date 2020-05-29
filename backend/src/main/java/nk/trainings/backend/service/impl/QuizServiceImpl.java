@@ -79,4 +79,9 @@ public class QuizServiceImpl implements QuizService {
     public Iterable<QuizEntity> findAllByAuthor_Id(Long id) {
         return quizRepository.findAllByAuthor_Id(id);
     }
+
+    @Override
+    public Optional<QuizEntity> findByUrlAddress(String url) {
+        return quizRepository.findByUrlAddress(url);
+    }
 }

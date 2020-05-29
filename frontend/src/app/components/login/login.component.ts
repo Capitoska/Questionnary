@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from 'src/app/services/user.service';
 import {TokenStorageService} from 'src/app/services/token-storage.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.setUserAuthorized(this.tokenStorage.getToken());
-      this.router.navigate(['']);
       this.reloadPage();
     }, error => {
       this.errorMessage = error.message;
@@ -47,5 +46,9 @@ export class LoginComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+  }
+
+  quizList(): void {
+    this.router.navigate(['']);
   }
 }

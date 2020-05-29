@@ -4,6 +4,7 @@ import fapi.dto.UserAnswerDto;
 import fapi.dto.UserDto;
 import fapi.dto.converter.UserAnswerConverter;
 import fapi.entity.UserAnswerEntity;
+import fapi.service.AnswerOptionService;
 import fapi.service.UserAnswerService;
 import fapi.utils.AuthorizationBean;
 import lombok.extern.log4j.Log4j2;
@@ -32,6 +33,9 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     @Autowired
     private UserAnswerConverter userAnswerConverter;
 
+    @Autowired
+    private AnswerOptionService answerOptionService;
+
     @Override
     public Iterable<UserAnswerDto> findALL() {
         UserAnswerEntity[] userAnswerEntities = restTemplate.getForObject(backendUserAnswerUrl, UserAnswerEntity[].class);
@@ -45,8 +49,6 @@ public class UserAnswerServiceImpl implements UserAnswerService {
         return Optional.ofNullable(userAnswerConverter.toDto(userAnswerEntity));
     }
 
-    //todo установить метод для вставки зарегистрированного юзера в отвечающего.
-
     @Override
     public UserAnswerDto save(UserAnswerDto dto) {
         return null;
@@ -56,7 +58,15 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     public List<UserAnswerDto> saveAll(List<UserAnswerDto> dtos) {
         UserDto userDto = authorizationBean.getAuthorizedUserDTO();
         log.info("SaveAll is worked");
-        dtos.stream().forEach(dto->dto.setUser(userDto));
+        for (UserAnswerDto userAnswerDto:dtos){
+            userAnswerDto.setUser(userDto);
+            if (userAnswerDto.getQuestion().getAnswerType().getValue().equals("text")){
+                if(!answerOptionService.getByValue(userAnswerDto.getAnswer().getValue()).isPresent()){
+                    userAnswerDto.getAnswer().setId(null);
+                    userAnswerDto.setAnswer(answerOptionService.save(userAnswerDto.getAnswer()));
+                }
+            }
+        }
         restTemplate.postForObject(backendUserAnswerUrl, userAnswerConverter.toEntityList(dtos), UserAnswerEntity[].class);
         return null;
     }

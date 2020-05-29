@@ -94,13 +94,14 @@
                 <button class="btn btn-primary btn-block">Sign Up</button>
             </div>
 
-            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+            <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed" style="margin-top: 30px;">
                 Signup failed!<br />{{ errorMessage }}
             </div>
         </form>
 
-        <div class="alert alert-success" *ngIf="isSuccessful">
+        <div class="alert alert-success" *ngIf="isSuccessful" style="margin-top: 30px;">
             Your registration is successful!
         </div>
+        <button class="btn btn-light" *ngIf="isSuccessful" (click)="quizList()">OK</button>
     </div>
 </div>

@@ -22,19 +22,12 @@ public class QuizController {
         return quizEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public QuizEntity getQuiz(@RequestParam(name = "id", required = false) Long id, @RequestParam(name="name", required = false)String name) {
-//        Optional<QuizEntity> quizEntity;
-//        if(id != null) {
-//            quizEntity = quizService.findById(id);
-//        }
-//
-//        if(name != null){
-//            quizEntity = quizService.findByName(name);
-//        }
-//
-//        return quizEntity.orElse(null);
-//    }
+
+    @RequestMapping(value = "/url/{url}", method = RequestMethod.GET)
+    public ResponseEntity<QuizEntity> getQuizByUrl(@PathVariable(name = "url") String  url) {
+        Optional<QuizEntity> quizEntity = quizService.findByUrlAddress(url);
+        return quizEntity.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public Iterable<QuizEntity> getAllByName(@PathVariable String name) {

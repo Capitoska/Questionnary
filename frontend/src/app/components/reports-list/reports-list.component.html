@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Reports list
+            </h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush" *ngIf="reports">
+                <li class="list-group-item" *ngFor="let report of reports; let i = index">
+                    <div><b>{{report.reporter.username}}'s report:</b></div>
+                    <div>{{report.text}}</div>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-dark" (click)="goToProfile()">Go to profile</button>
+        </div>
+    </div>
+</div>

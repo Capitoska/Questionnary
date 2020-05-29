@@ -42,6 +42,16 @@ public class QuizServiceImpl implements QuizService {
                 quizConverter.toDtoList(Arrays.stream(quizEntities).collect(Collectors.toList()));
     }
 
+
+    @Override
+    public Optional<QuizDto> findByIdOrUrl(String finder){
+        try {
+            return findById(Long.parseLong(finder));
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     @Override
     public Optional<QuizDto> findById(Long id) {
         QuizEntity quizEntity = restTemplate.getForObject(backendQuizUrl + id, QuizEntity.class);

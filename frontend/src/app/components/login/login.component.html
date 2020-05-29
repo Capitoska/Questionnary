@@ -31,8 +31,9 @@
             </div>
         </form>
 
-        <div class="alert alert-success" *ngIf="isLoggedIn">
+        <div class="alert alert-success" *ngIf="isLoggedIn" style="margin-top: 20px">
             Login success!
         </div>
+        <button class="btn btn-light" *ngIf="isLoggedIn" (click)="quizList()">Ok</button>
     </div>
 </div>
